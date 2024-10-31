@@ -1,0 +1,15 @@
+@font-face {
+    font-family: 'Naste Light';
+    src: local('Naste Light'), local('Naste-Light'),
+    url('fonts/Naste-Light.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Naste Regular';
+    src: local('Naste Regular'), local('Naste-Regular'),
+    url('fonts/Naste-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Naste SemiBold';
+    src: local('Naste SemiBold'), local('Naste-Semibold'),
+    url('fonts/Naste-SemiBold.ttf') format('truetype');
+}

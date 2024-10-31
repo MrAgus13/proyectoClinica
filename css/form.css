@@ -1,0 +1,245 @@
+/* Estilo general de la web */
+*{
+    font-family: 'Naste Semibold';
+}
+
+body{    
+    background-image: url(../img/edificio-sf.jpg);
+    background-size: cover;
+    margin: 0;
+    padding: 0;   
+    display: flex;
+    overflow: hidden;
+}
+
+
+ /*pestañas*/
+.tab-bar {
+    margin: 20px auto;
+    display: flex;
+    list-style-type: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    padding-left: 0px;  
+    margin-left: 10%;
+    margin-right: 10%;  
+    border-radius: 5px;
+}
+
+.tab {
+    width: 100%;
+    padding: 20px 0;
+    color: black;
+    overflow: hidden;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+}
+
+.indicator {
+    width: 20%;
+    height: 3px;
+    background: #134189;
+    position: absolute;
+    margin-top: 58px;
+    margin-left: 0;
+    transition: margin 0.5s ease;
+}
+
+.anim {
+  opacity: 0.2;
+}
+
+@-webkit-keyframes touch {
+    100% { 
+      width: 600px;
+      height: 600px;
+      border-radius: 600px;
+      opacity: 0;
+      margin: -300px;
+    }
+  }
+  
+  @keyframes touch {
+    100% { 
+      width: 600px;
+      height: 600px;
+      border-radius: 600px;
+      opacity: 0;
+      margin: -300px;
+    }
+  }
+/*fin pestañas*/
+
+h3{
+    color: #134189;
+    font-size: small;
+    text-align: center;
+}
+
+p{
+    text-align: center;
+}
+
+#titles{
+    font-size: 3.29982rem;
+    color: #134189;
+    text-align: center;
+}
+
+#logo{
+    width: 100%;
+    height: 7.5em;
+}
+
+#logo img{
+    margin: 1em;
+    float: right;
+    width: 30em;
+}
+
+/* Formulario */
+#box{
+    width: 55%;
+    height: 100vh;
+    background-color: rgba(255,255,255,.80);
+    box-shadow: 0 0 1em rgba(0,0,0,.5);
+    margin: 0 auto;
+    padding: 3em;
+}
+
+.formsBox{
+    margin-left: 8%;
+    margin-right: 2%;
+}
+
+form{
+    width: 100%;
+}
+
+div form * {
+    margin: .3em;
+    border-radius: 5px;
+}
+
+#anom-button{
+    width: 15em;
+    height: 3em;
+    background-color: white;
+    border: none;
+    margin: 0;
+    padding: .4em;
+}
+.active {
+    background-color: #134189 !important;
+    color: white;
+}
+
+form{
+    border: none;
+    padding: 1em;
+    margin: 0;
+    display: inline-block;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+input, textarea, select {
+    padding: .2em;
+    border: none;
+    background-color: #e5e5e5;
+}
+
+input:focus, textarea:focus, select:focus{
+    box-shadow: 0 0 10px #134189;
+    outline: 1px solid #134189;    
+}
+
+/* Campos del formulario */
+label{
+    width: 48%;
+    display: block;
+    float: left;
+}
+
+
+#asunto {
+    width: 89%;
+}
+
+#fecha{
+    width: 40%;
+    margin-right: 7.8%;
+    cursor: pointer;
+    margin-bottom: 0.5em;
+}
+
+#localizacion{
+    width: 40.5%;
+    padding: .5em;
+}
+
+#descripcion{
+    width: 89.2%;
+    height: 9em;
+}
+
+#enviar {
+    float: right;
+    margin-right: 10%;
+    width: 15%;
+    padding: .8em;
+    background-color: #134189;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: .8em; 
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+}
+#enviar:hover {
+    background-color: #0b2b4a;
+}
+
+#fichero {
+    display: none;
+}
+#btn-fichero {
+    display: inline-block;
+    width: 15%;
+    padding: .8em;
+    text-align: center;
+    background-color: #7c7c7cb6; /* Color verde */
+    color: white; /* Texto en blanco */
+    border: none;
+    cursor: pointer;
+    font-size: .8em; /* Tamaño de la letra */
+    transition: background-color 0.3s ease; /* Transición suave */
+    border-radius: 5px;
+}
+#btn-fichero:hover {
+    background-color: #646464b6; /* Color verde más oscuro */
+}
+
+/*Formulario confidencial*/
+
+#confText {
+    display: none;
+}
+
+#nombre {
+    width: 40%;
+    margin-right: 7.8%;
+    cursor: pointer;
+}
+
+#formConf #fecha {
+    width: 40%;
+    margin-right: 7.8%;
+    cursor: pointer;
+}
+
+
+#email {
+    width: 40%;
+}
