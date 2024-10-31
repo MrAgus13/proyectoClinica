@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buzón de sugerencias | Clínica Sagrada Família</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="js/home.js"></script>
+</head>
+<body>
+    <header>
+        <div id="logo">
+            <img src="img/logo-sagrada-familia.svg" alt="logo-sagrada-familia" rel="preload">
+        </div>
+    </header>
+    <div class="titulo">
+        <h1>Comunicación de incidencias, EA o casi incidente</h1>
+    </div>
+    <div class="cuerpo">
+        <div>
+            <a href="formulario"><button class="big-button"><p>Crear nueva incidencia</p></button></a>
+        </div>
+        <div>
+            <button class="big-button" onclick="desplegarBuscador()"><p>Consultar estado de incidencia</p></button>
+        </div>
+    </div>
+    <div  id="space-code" style="display: none; ">
+        <p id="textCod">Introduce el código de la incidencia</p>
+        <input type="text" placeholder="Código" >
+        <dotlottie-player id="icon" src="https://lottie.host/5f105f0c-69aa-42a8-a084-42867c944d23/PIRyCJNSqU.json" background="transparent" speed="1"  loop autoplay></dotlottie-player>
+    </div>
+    
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+   
+</body>
+</html>

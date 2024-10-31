@@ -1,0 +1,111 @@
+/* Estilo general de la web */
+*{
+    font-family: 'Naste light';
+}
+
+body{
+    background-image: url(../img/edificio-sf.jpg);
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+}
+h1{
+    text-align: center;
+    font-family: 'Naste regular';
+    cursor: default;
+    color: #134189;
+}
+#titles{
+    font-size: 4.29982rem;
+}
+
+#logo{
+    width: 100%;
+    height: 7.5em;
+}
+
+#logo img{
+    margin: 1em;
+    float: right;
+    width: 30em;
+    margin-bottom: 7em;
+}
+
+/*ES LA CAJA QUE CONTIENE EL LOGIN*/
+#container_form{
+    display: flex;
+    justify-content: center;
+
+    background-color: rgba(255,255,255,.80);
+    width: 100%;
+    margin: 0 auto;
+    box-shadow: 0 0 1em rgba(0,0,0,.5);
+
+}
+
+#form_div{
+    width: 100%;
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+
+#form_div input {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border: none;
+    background-color: #e5e5e5;
+    border-radius: 5px;
+}
+
+#form{
+    text-align: center;
+}
+
+#mail, #password{
+    width: 25%;
+    padding: .8em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+/* AQUI TENEMOS EL BOTON DE INICIO DE SESIÓN */
+.button_login{  
+    width: 26.2%;
+    margin: 0 auto;
+    margin-top: 1em;
+    margin-bottom: 2em;
+    padding: .9em;
+    background-color: #134189;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+}
+#form > label:nth-child(5), #form > label:nth-child(1){
+    float: left;
+    margin-left: 37.3%;
+}
+
+.button_login:hover{
+    background-color: #0c316d;
+    
+}
+#remember{
+    margin-top: 1em;
+    margin-bottom: 1em;
+   cursor: pointer;
+}
+
+/* ESTO PARA TENER LO DEL */
+input::placeholder{
+    font-size: 1.1em;
+    opacity: .7;
+    
+}
+
+input:focus{
+    box-shadow: 0 0 10px #134189;
+    outline: 1px solid #134189;    
+}
+

@@ -1,0 +1,61 @@
+
+body{
+    background-image: url(../img/edificio-sf.jpg);
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+}
+
+#box{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 8%;
+}
+
+.nuevas{
+    width: 80%;
+    padding-bottom: 2em;
+    padding-top: 1em;
+    padding-inline: 3em;
+
+    font-family: 'Naste Semibold';
+    font-size: 20px;
+    color: #134189;
+
+    background-color: rgba(255,255,255,.80);
+    box-shadow: 0 0 1em rgba(0,0,0,.5);
+   
+    border-radius: 5px;
+    margin-bottom: 2%;
+}
+
+.encurso{
+    width: 80%;
+    padding-bottom: 2em;
+    padding-top: 1em;
+    padding-inline: 3em;
+
+    font-family: 'Naste Semibold';
+    font-size: 20px;
+    color: #134189;
+    
+    background-color: rgba(255,255,255,.80);
+    box-shadow: 0 0 1em rgba(0,0,0,.5);
+    
+    border-radius: 5px;
+}
+
+.divisor{
+    border: 1px solid grey;
+}
+
+.big-button{
+    background-color: #134189;
+    text-align: center;
+    font-size: 20px;
+    border-radius: 5px;
+    margin-top: 3%;
+    font-family: 'Naste light';
+}
+
