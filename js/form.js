@@ -61,9 +61,10 @@ function enviarAnom(event){
     text: "Recuerda no incluir información confidencial de pacientes o trabajadores.",
     icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: "#3085d6",
+    confirmButtonColor: "#134189",
+    confirmButtonText: "Enviar",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Enviar"
+    cancelButtonText: "Cancelar"
   }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
@@ -86,9 +87,10 @@ function enviarConf(event){
     text: "Recuerda no incluir información confidencial de pacientes o trabajadores.",
     icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: "#3085d6",
+    confirmButtonColor: "#134189",
+    confirmButtonText: "Enviar",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Enviar"
+    cancelButtonText: "Cancelar"
   }).then((result) => {
       if (result.isConfirmed) {
           document.getElementById('formConf').submit();
