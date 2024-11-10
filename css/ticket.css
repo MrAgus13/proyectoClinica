@@ -68,3 +68,41 @@ body > div > div:nth-child(3){
 #largeInput{
     width: 96.8% !important ;
 }
+
+
+/* animation fro from tick */
+
+
+/* Define las animaciones */
+@keyframes slideDown {
+    from {
+        height: 0;
+        opacity: 0;
+    }
+    to {
+        height: 12%;
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        height: 12%;
+        opacity: 1;
+    }
+    to {
+        height: 0;
+        opacity: 0;
+    }
+}
+
+/* Aplica las animaciones a las clases */
+.slide-down {
+    animation: slideDown 0.5s forwards;
+    overflow: hidden;
+}
+
+.slide-up {
+    animation: slideUp 0.5s forwards;
+    overflow: hidden;
+}

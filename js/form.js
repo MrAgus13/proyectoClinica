@@ -30,28 +30,48 @@ var waveBtn = (function () {
 
           indicator.style.marginLeft = indi + (this.dataset.num - 1) * 24 + '%';
 
-          // Toggle forms
+          // Toggle forms with animation
           if (boolean) {
-              anomForm.style.display = "inline-block";
-              confForm.style.display = "none";
-              confText.style.display = "none";
-              anomText.style.display = "block";
+            // animating the text too
+              anomText.classList.remove('fade-out');
+              confText.classList.remove('fade-in');
+              anomText.classList.add('fade-in');
+              confText.classList.add('fade-out');
+              anomForm.classList.remove('fade-out');
+              confForm.classList.remove('fade-in');
+              anomForm.classList.add('fade-in');
+              confForm.classList.add('fade-out');
+              setTimeout(() => {
+                  anomForm.style.display = "inline-block";
+                  confForm.style.display = "none";
+                  confText.style.display = "none";
+                  anomText.style.display = "block";
+              }, 200);
               boolean = 0;
           } else {
-              anomForm.style.display = "none";
-              confForm.style.display = "inline-block";
-              anomText.style.display = "none";
-              confText.style.display = "block";
+              anomText.classList.remove('fade-in');
+              confText.classList.remove('fade-out');
+              anomText.classList.add('fade-out');
+              confText.classList.add('fade-in');
+              anomForm.classList.remove('fade-in');
+              confForm.classList.remove('fade-out');
+              anomForm.classList.add('fade-out');
+              confForm.classList.add('fade-in');
+              setTimeout(() => {
+                  anomForm.style.display = "none";
+                  confForm.style.display = "inline-block";
+                  anomText.style.display = "none";
+                  confText.style.display = "block";
+              }, 200);
               boolean = 1;
           }
 
           setTimeout(() => {
               newRound.remove();
-          }, 1200);
+          }, 1000); 
       };
-  })
-  
-}());
+  });
+})();
 
 //Pop up
 function enviarAnom(event){
@@ -69,7 +89,7 @@ function enviarAnom(event){
       if (result.isConfirmed) {
         Swal.fire({
             title: "Enviado!",
-            text: "Su información ha sido enviada.",
+            text: "Su incidencia ha sido enviada.",
             icon: "success",
             timer: 1000,
           willClose: () => {
@@ -91,13 +111,14 @@ function enviarConf(event){
     confirmButtonText: "Enviar",
     cancelButtonColor: "#d33",
     cancelButtonText: "Cancelar"
+
   }).then((result) => {
       if (result.isConfirmed) {
           document.getElementById('formConf').submit();
           Swal.fire({
               title: "Enviado!",
-              text: ".",
-              icon: "success"
+              text: "Su incidencia ha sido enviada.",
+              icon: "success",
           });
       }
   });

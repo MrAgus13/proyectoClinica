@@ -5,7 +5,7 @@ function desplegarBuscador() {
 
     isVisible = !isVisible;
 
-    searchButton.style.display = isVisible ? "block" : "none";
+    searchButton.style.display = isVisible ? "flex" : "none";
 }
 
 

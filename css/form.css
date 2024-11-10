@@ -46,29 +46,7 @@ body{
     transition: margin 0.5s ease;
 }
 
-.anim {
-  opacity: 0.2;
-}
 
-@-webkit-keyframes touch {
-    100% { 
-      width: 600px;
-      height: 600px;
-      border-radius: 600px;
-      opacity: 0;
-      margin: -300px;
-    }
-  }
-  
-  @keyframes touch {
-    100% { 
-      width: 600px;
-      height: 600px;
-      border-radius: 600px;
-      opacity: 0;
-      margin: -300px;
-    }
-  }
 /*fin pestañas*/
 
 h3{
@@ -242,4 +220,61 @@ label{
 
 #email {
     width: 40%;
+}
+
+
+.anim {
+    opacity: 0.2;
+  }
+
+/* zone animation */
+
+@-webkit-keyframes touch {
+    100% { 
+    width: 600px;
+    height: 600px;
+    border-radius: 600px;
+    opacity: 0;
+    margin: -300px;
+    }
+}
+
+@keyframes touch {
+    100% { 
+    width: 600px;
+    height: 600px;
+    border-radius: 600px;
+    opacity: 0;
+    margin: -300px;
+    }
+}
+
+/* change the form with opacity */
+
+/* Define the animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+/* Aplica las animaciones a las clases */
+.fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.fade-out {
+    animation: fadeOut 0.5s ease-out forwards;
 }
