@@ -4,50 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Incidencias</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">   
+    <link rel="stylesheet" href="css/fonts.css">  
     <link rel="stylesheet" href="css/pPpalCelia.css">
-    <link rel="stylesheet" href="css/fonts.css">
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
     <script defer src="bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <div class="contaier px-4">
-        <div class="row align-items-center">
-            <div class="col col-sm-4">
-                <div id="nuevas">
-                    <div class="titulo">
-                        <p style="border-bottom: 2px solid #7c7c7cb6;">Nuevas incidencias</p>
-                    </div>
-                    <div>  
-                        <ul>
-                            <li>Fecha</li>
-                            <li>ID</li>
-                            <li>Asunto</li>
-                            <li>Localización</li>
-                            <li>Datos adjuntos</li>         
-                        </ul>
-                    </div>
-                    <div class="contenido">Lista de incidencias aqui</div>
+    <div class="container-fluid">
+        <div class="row justify-content-evenly">
+            <!-- Tarjeta nuevas incidencias -->
+            <div class="col-md-5 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary border-bottom pb-2">Nuevas incidencias</h5>                                     
+                        <table class="table table-bordered">                                                  
+                            <tbody>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>ID</th>
+                                    <th>Asunto</th>
+                                    <th>Localización</th>
+                                    <th></th>
+                                </tr>
+                                <tr>
+                                    <td>2024-11-01</td>
+                                    <td>18431</td>
+                                    <td>Posible mejora de las camas</td>
+                                    <td>REA</td>
+                                    <td><img src="img/file_present.svg" alt=""></td>
+                                </tr>
+                                <tr>
+                                    <td>2024-11-02</td>
+                                    <td>2548</td>
+                                    <td>Proveedor de medicación</td>
+                                    <td>Farmacia</td>
+                                    <td></td>
+                                </tr>                              
+                            </tbody>
+                        </table>                      
+                    </div>                
                 </div>
-                <div id="encurso">
-                    <div class="titulo">
-                        <p style="border-bottom: 2px solid #7c7c7cb6;">Incidencias en curso</p>
-                    </div>  
-                    <div>
-                        <ul>
-                            <li>Fecha</li>
-                            <li>ID</li>
-                            <li>Asunto</li>
-                            <li>Localización</li>
-                            <li>Datos adjuntos</li>  
-                        </ul>
-                    </div>
-                    <div class="contenido">Lista de incidencias aqui</div>
-                </div>  
             </div>
+            <!-- Tarjeta incidencias en curso -->
+            <div class="col-md-5 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary border-bottom pb-2">Incidencias en curso</h5> 
+                        <table class="table table-bordered">                                                  
+                            <tbody>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>ID</th>
+                                    <th>Asunto</th>
+                                    <th>Localización</th>
+                                    <th></th>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>                              
+                            </tbody>
+                        </table>  
+                    </div>                  
+                </div>  
+            </div>           
         </div>   
     </div>
-    <div>
-        <a href="resueltas.html"><button id="big-button"><p>Consultar incidencias resueltas</p></button></a>
+
+    <div class="text-center">
+        <div>
+            <a href="resueltas.html"><button class="btn btn-primary">Consultar incidencias resueltas</button></a>
+        </div>
     </div>
 </body>
 </html>
