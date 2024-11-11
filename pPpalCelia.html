@@ -6,39 +6,45 @@
     <title>Incidencias</title>
     <link rel="stylesheet" href="css/pPpalCelia.css">
     <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <script defer src="bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <div id="box">
-        <div id="nuevas">
-            <div class="titulo">
-                <p style="border-bottom: 2px solid #7c7c7cb6;">Nuevas incidencias</p>
+    <div class="contaier px-4">
+        <div class="row align-items-center">
+            <div class="col col-sm-4">
+                <div id="nuevas">
+                    <div class="titulo">
+                        <p style="border-bottom: 2px solid #7c7c7cb6;">Nuevas incidencias</p>
+                    </div>
+                    <div>  
+                        <ul>
+                            <li>Fecha</li>
+                            <li>ID</li>
+                            <li>Asunto</li>
+                            <li>Localización</li>
+                            <li>Datos adjuntos</li>         
+                        </ul>
+                    </div>
+                    <div class="contenido">Lista de incidencias aqui</div>
+                </div>
+                <div id="encurso">
+                    <div class="titulo">
+                        <p style="border-bottom: 2px solid #7c7c7cb6;">Incidencias en curso</p>
+                    </div>  
+                    <div>
+                        <ul>
+                            <li>Fecha</li>
+                            <li>ID</li>
+                            <li>Asunto</li>
+                            <li>Localización</li>
+                            <li>Datos adjuntos</li>  
+                        </ul>
+                    </div>
+                    <div class="contenido">Lista de incidencias aqui</div>
+                </div>  
             </div>
-            <div>  
-                <ul>
-                    <li>Fecha</li>
-                    <li>ID</li>
-                    <li>Asunto</li>
-                    <li>Localización</li>
-                    <li>Datos adjuntos</li>         
-                </ul>
-            </div>
-            <div class="contenido">Lista de incidencias aqui</div>
-        </div>
-        <div id="encurso">
-            <div class="titulo">
-                <p style="border-bottom: 2px solid #7c7c7cb6;">Incidencias en curso</p>
-            </div>  
-            <div>
-                <ul>
-                    <li>Fecha</li>
-                    <li>ID</li>
-                    <li>Asunto</li>
-                    <li>Localización</li>
-                    <li>Datos adjuntos</li>  
-                </ul>
-            </div>
-            <div class="contenido">Lista de incidencias aqui</div>
-        </div>      
+        </div>   
     </div>
     <div>
         <a href="resueltas.html"><button id="big-button"><p>Consultar incidencias resueltas</p></button></a>

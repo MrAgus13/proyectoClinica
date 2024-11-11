@@ -10,6 +10,9 @@ body{
     margin: 0;
     padding: 0;
 }
+.row{
+    margin-right: 0px!important
+}
 
 #titles{
     font-size: 4.29982rem;
@@ -29,6 +32,7 @@ body{
 .vertical-center {
     min-height: 100%;  
     min-height: 75vh;
+    min-width: 70vh;
     display: flex;
     align-items: center;
   }
@@ -83,6 +87,7 @@ body{
 
 #space-code{
     justify-items: center;  
+    position: relative; /* Necesario para controlar la posición de los elementos dentro */
 }
 #space-code p{
     color: #134189;
@@ -109,12 +114,11 @@ input::placeholder{
 }
 
 #icon{
-    width: 4%;
-    position: absolute !important;
-    height: 10% !important;
-    transform: translate3d(0px, 0px, 0px) !important;
-    right: 40% !important;
-    bottom: 15em !important;
+    position: absolute;
+    top: 22px;
+    right: 10px;
+    z-index: 10;
+    width: 70px;
 }
 .animate__animated.animate__fadeIn{
     --animate-duration: 2s;

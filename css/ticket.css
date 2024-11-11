@@ -106,3 +106,10 @@ body > div > div:nth-child(3){
     animation: slideUp 0.5s forwards;
     overflow: hidden;
 }
+
+.btnAdd{
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
