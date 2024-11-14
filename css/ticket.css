@@ -1,108 +1,81 @@
-.box-tick{
-    background-color: rgba(255,255,255,.80);
-    box-shadow: 0 0 1em rgba(0,0,0,.5);
-    margin: auto;
-    width: 70%;
+/* Estilos de la caja principal */
+.box-tick {
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
     padding: 2em;
-    height: 100vh;
     border-radius: 4px;
+    max-width: 800px; /* Limitamos el ancho máximo */
 }
 
-.text-tick{
+/* Estilos del título */
+.text-tick {
     text-align: center;
 }
 
+#ticket-info{
+    margin: 4em;
+}
 
-input{
+/* Input general */
+input, textarea {
     width: 100%;
+    background-color: #e0e0e0;
+    color: #666;
+    border: 1px solid grey;
+    cursor: not-allowed;
 }
 
-.boxDes{
-    width: 70%;
-    margin: 0 auto;
+/* Caja desplegable (boxDes) */
+.boxDes {
     border: 1px solid grey;
-    height: 40%;
+    border-radius: 4px;
+    margin: 0 auto;
+    padding: 1em;
 }
 
-.boxUnDes{
-    width: 70%;
-    margin: 0 auto;
+/* Caja comprimida (boxUnDes) */
+.boxUnDes {
     border: 1px solid grey;
-    border-top: none;
-    height: 6%;
+    height: 3em;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
 }
 
-.dropdownIcon{
-    width: 29px;
-    height: 58%;
-    margin-top: 1.3%;
-    margin-right: 1.5%;
+/* Icono de dropdown */
+.dropdownIcon {
+    width: 24px;
+    height: auto;
+    margin-right: 1em;
 }
 
-#oculto{
-    display: none;
+/* Input y textareas de solo lectura */
+input[readonly], textarea[readonly] {
+    background-color: #e0e0e0;
+    color: #666;
+    border: 1px solid grey;
+    cursor: not-allowed;
 }
 
-#oculto2{
-    display: none;
-}
-
-#infoTicket{
-    display: flex;
-    margin: 0 auto;
-}
-
-.infoPersonal{
+/* Botón */
+.btnadd {
     width: 100%;
-    float: left;
-    margin: 1em;
+    max-width: 200px;
+    height: 3em;
+    font-size: 1em;
 }
 
-body > div > div:nth-child(3){
-    width: 70%;
-    margin: 0 auto;
+/* Oculta detalles por defecto */
+.boxDes {
+    display: none;
 }
 
-#largeInput{
-    width: 96.8% !important ;
+/* Muestra detalles cuando se remueve la clase d-none */
+.boxDes:not(.d-none) {
+    display: block;
 }
 
-
-/* animation fro from tick */
-
-
-/* Define las animaciones */
-@keyframes slideDown {
-    from {
-        height: 0;
-        opacity: 0;
-    }
-    to {
-        height: 12%;
-        opacity: 1;
-    }
-}
-
-@keyframes slideUp {
-    from {
-        height: 12%;
-        opacity: 1;
-    }
-    to {
-        height: 0;
-        opacity: 0;
-    }
-}
-
-/* Aplica las animaciones a las clases */
-.slide-down {
-    animation: slideDown 0.5s forwards;
-    overflow: hidden;
-}
-
-.slide-up {
-    animation: slideUp 0.5s forwards;
-    overflow: hidden;
+.d-block{
+    display: block;
 }

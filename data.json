@@ -1,0 +1,23 @@
+{
+  "initialInfo": {
+    "date": "10-11-2081",
+    "location": "Clínica Central",
+    "area": "Cardiología",
+    "subject": "Revisión periódica",
+    "description": "Paciente con antecedentes de hipertensión y diabetes."
+  },
+  "comments": [
+    {
+      "text": "Comentario sobre el seguimiento médico",
+      "subject": "Seguimiento",
+      "description": "El paciente mostró mejoras en el control de la presión arterial."
+    }
+  ],
+  "files": [
+    {
+      "text": "Archivo de análisis de sangre",
+      "fileName": "analisis_sangre.pdf",
+      "fileDescription": "Resultados de los análisis de sangre del paciente."
+    }
+  ]
+}

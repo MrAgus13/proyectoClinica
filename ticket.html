@@ -8,55 +8,26 @@
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/ticket.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <script src="js/tick.js"></script>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <script src="js/tickPruebas.js"></script>
+    <script src="js/tickPruebasGenerar.js"></script>
 </head>
 <body>
-    <div class="box-tick">
-        <div class="text-tick"> <h1>Tiquet <span style="color: #134189;">W6dsEoeabvRz</span></h1> <p >Estado: <span style="color: #134189;"> En progreso</span></p> </div>    
-        <div class="boxUnDes" id="oculto" style="border-top: 1px solid grey;" onclick="hideBox2()">
-            <p style="padding: 1em;margin: 0;">Info inicial del ticket</p>
-            <img class="dropdownIcon" src="img/dropdownIcon.png" alt="">
-        </div>
-        <div class="boxDes" id="hideTick"> <!-- BoxDesplegable esta es la caja que va ir cambiando--> 
-            <div id="infoTicket">
-                <div class="infoPersonal">
-                    <p>Fecha de la incidencia</p>
-                    <input type="text" id>
-                </div>
-                <div class="infoPersonal">
-                    <p>Localización | Área clínica</p>
-                    <input type="text" id>
-                </div>
-            </div> 
-            <div class="infoPersonal">
-                <p>Asunto</p>
-                <input type="text" id="largeInput">
-            </div>
-            <div class="infoPersonal">
-                <p>Descripción de la incidencia</p>
-                <textarea type="text" id="largeInput"></textarea>
-            </div>
-
-        </div>
-        <div class="boxUnDes" id="unDesBox1" onclick="hideBoxDes()">
-            <p style="padding: 1em;margin: 0;">Un comentario ha sido agregado</p>
-            <img class="dropdownIcon"  src="img/dropdownIcon.png" alt="">
+    <div class="container box-tick mt-5">
+        <div class="text-tick mb-4">
+            <h1>Tiquet <span style="color: #134189;">40865540</span></h1>
+            <p>Estado: <span style="color: #134189;">En progreso</span></p>
         </div>
 
-        <div class="boxDes" id="oculto2"> <!-- BoxDesplegable esta es la caja que va ir cambiando --> 
-            <div class="infoPersonal">
-                <p>Asunto</p>
-                <input type="text" id="largeInput">
-            </div>
-            <div class="infoPersonal">
-                <p>Descripción de la incidencia</p>
-                <textarea type="text" id="largeInput"></textarea>
-            </div>
+        <div id="ticket-info">
+            <!-- Información inicial del ticket y otros elementos dinámicos se agregarán aquí -->
         </div>
-        <div class="boxUnDes">
-            <p style="padding: 1em;margin: 0;">Un fichero ha sido agregado</p>
-            <img class="dropdownIcon" src="img/dropdownIcon.png" alt="">
+        
+        <!-- Botón para añadir comentarios y archivos -->
+        <div class="text-center mt-4">
+            <button id="add-comment-btn" class="btn btn-primary btnadd">Añadir comentario</button>
+            <button id="add-file-btn" class="btn btn-secondary btnadd">Añadir fichero</button>
         </div>
-    </div>
+    </div> 
 </body>
 </html>
