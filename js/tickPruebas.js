@@ -139,13 +139,6 @@ document.addEventListener("DOMContentLoaded", function() {
                  // Cerramos las cajas que no fueron seleccionadas
             }
         });
-        const allBoxes2 = document.querySelectorAll(".boxUnDes");
-        allBoxes2.forEach(box => {
-            if (box !== detailsElement) {
-                box.classList.add("d-none"); 
-                 // Cerramos las cajas que no fueron seleccionadas
-            }
-        });
         // Alternamos la visibilidad de la caja seleccionada
         detailsElement.classList.toggle("d-none");
     }
