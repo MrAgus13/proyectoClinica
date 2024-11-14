@@ -5,7 +5,7 @@ session_start();
 $servername = "localhost";
 $username = "alumne";
 $password = "alumne";
-$dbname = "test";
+$dbname = "clinica";
 
 // Crear conexión
 $conn = new mysqli($servername, $username, $password, $dbname);

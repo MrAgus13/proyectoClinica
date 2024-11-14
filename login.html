@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login | Clínica Sagrada Família</title>
+    <title>Login | Clínica Sagrada Família</title>
     <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
@@ -20,17 +20,18 @@
     <div id="formContainer" class="container-fluid">
         <div id="form_div">
             <h1>¡Hola Celia!</h1><br>
-            <form action="pPpalCelia" id="form">
-                <label for="correo">Correo</label><br>
-                <input type="text" id="mail" placeholder="ejemplo@gmail.com"><br>
+            <form action="php/autenticacion.php" method="POST" id="form">
+                <label for="mail">Correo</label><br>
+                <input type="text" id="mail" name="mail" placeholder="ejemplo@gmail.com" required><br>
                 <label for="password">Contraseña</label><br>
-                <input type="password" id="password" placeholder="21345253"><br>
+                <input type="password" id="password" name="password" placeholder="21345253" required><br>
                 <input type="checkbox" id="remember" name="remember">
                 <label for="remember">Recuérdame</label> <br>
-                <button class="button_login" >Iniciar sesión</button> <br>
+                <button class="button_login" type="submit">Iniciar sesión</button> <br>
                 <a href="#">Recuperar Contraseña</a>
             </form>
         </div>
+
         <div id="photo_div">
         </div>
     </div>

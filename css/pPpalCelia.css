@@ -70,3 +70,20 @@ td, th{
     background-color: transparent !important;
 
 }
+
+.salir a{
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    color: #134189;
+    padding: 10px;
+}
+
+.salir{
+    
+    display: flex;
+    margin-top: 2%;
+    margin-right: 8%;
+    
+}

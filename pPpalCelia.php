@@ -1,3 +1,14 @@
+<?php
+session_start();  // Inicia la sesión PHP
+
+// Verificar si la sesión está activa (si el usuario ha iniciado sesión)
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE) {
+    // Si no está logueado, redirigir al login
+    header('Location: login');
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,11 +90,16 @@
                 </div>  
             </div>           
         </div>   
-    </div>
-
-    <div class="text-center">
-        <div>
-            <a href="resueltas.html"><button class="btn btn-primary">Consultar incidencias resueltas</button></a>
+        <div class="text-center">
+            <div>
+                <a href="resueltas.html"><button class="btn btn-primary">Consultar incidencias resueltas</button></a>
+            </div>
+        </div>
+        <div class="salir justify-content-end">
+            <a href="php/cerrar-sesion.php">
+                Cerrar sesión
+                <img src="img/salir.svg" alt="">
+            </a>
         </div>
     </div>
 </body>
