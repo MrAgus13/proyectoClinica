@@ -45,7 +45,7 @@ if ($stmt = $conexion->prepare('SELECT USUARIO_ADMIN, CONTRASENA, NOMBRE FROM AD
             $_SESSION['loggedin'] = TRUE;
             $_SESSION['name'] = $nombre;
             $_SESSION['mail'] = $db_mail; // Guardar el mail en la sesión
-            header('Location: ../pPpalCelia.php'); // Redirigir al inicio
+            header('Location: ../pPpalCelia'); // Redirigir al inicio
             exit();
         } else {
             // Contraseña incorrecta

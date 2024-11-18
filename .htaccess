@@ -1,12 +1,10 @@
 # Activar mod_rewrite
 RewriteEngine On
 
-# Quitar la extensión .html
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
+# Quitar la extensión .html (Primero, para que las páginas HTML se gestionen)
+RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^([a-zA-Z0-9_-]+)$ $1.html [L]
 
-# Quitar la extensión .php
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
+# Quitar la extensión .php (Luego, para que las páginas PHP se gestionen)
+RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteRule ^([a-zA-Z0-9_-]+)$ $1.php [L]

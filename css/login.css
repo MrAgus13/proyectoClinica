@@ -109,3 +109,20 @@ input:focus{
     outline: 1px solid #134189;    
 }
 
+/* Shake animation */
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(5px); }
+}
+
+/* Style for the red border when input is invalid */
+.invalid-input {
+    border: 2px solid red !important;
+    animation: shake 0.5s ease; /* Apply shake animation */
+}
+
+
+
