@@ -14,16 +14,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (dotLottiePlayer) {
         dotLottiePlayer.addEventListener('click', function() {
-            window.location.href = 'ticket';
-            /*          
-              const code = document.getElementById('incidentCode').value;
-                if (code) {
-                    // Redirigir a una nueva página con el código como parámetro
-                    window.location.href = 'ticket.html?code=' + encodeURIComponent(code);
-                } else {
-                    alert('Por favor, introduce un código válido.');
-                }
-            */
+            const codigo = document.getElementById("codigoIncidencia").value; 
+
+            if (codigo) {
+                window.location.href = 'ticket?id=' + encodeURIComponent(codigo);
+            } else {
+                alert('Por favor, introduce un código válido.');
+            }
         });
     }
 });

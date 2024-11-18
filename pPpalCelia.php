@@ -28,29 +28,84 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE) {
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title text-primary border-bottom pb-2">Nuevas incidencias</h5>                                     
-                        <table class="table table-bordered">                                                  
+                        <table class="table table-bordered" style="max-height: 400px; overflow-y: auto; display: block; width: 100%;">                                                 
                             <tbody>
-                                <tr>
+                            <tr>
                                     <th>Fecha</th>
                                     <th>ID</th>
                                     <th>Asunto</th>
                                     <th>Localización</th>
                                     <th></th>
-                                </tr>
-                                <tr>
-                                    <td>2024-11-01</td>
-                                    <td>18431</td>
-                                    <td>Posible mejora de las camas</td>
-                                    <td>REA</td>
-                                    <td><img src="img/file_present.svg" alt=""></td>
-                                </tr>
-                                <tr>
-                                    <td>2024-11-02</td>
-                                    <td>2548</td>
-                                    <td>Proveedor de medicación</td>
-                                    <td>Farmacia</td>
-                                    <td></td>
-                                </tr>                              
+                            </tr>
+                            <?php
+                                session_start();
+
+                                // Configurar la conexión a la base de datos
+                                $servername = "localhost";
+                                $username = "alumne";
+                                $password = "alumne";
+                                $dbname = "clinica";
+
+                                // Crear conexión
+                                $conn = new mysqli($servername, $username, $password, $dbname);
+
+                                // Verificar la conexión
+                                if ($conn->connect_error) {
+                                    die("Conexión fallida: " . $conn->connect_error);
+                                }
+
+                                // Verificar si la sesión de usuario está definida
+                                    // Obtener el email de la sesión
+                                    $email = $_SESSION['email'];
+
+                                    // Obtener y sanitizar la fecha del parámetro GET
+                                    $date = $_GET['date'];
+                                    $date = htmlspecialchars($date); // Sanitizar la fecha, si es necesario
+
+                                    // Preparar la consulta SQL de manera segura usando declaración preparada
+                                    $sql = "SELECT * FROM TICKETS WHERE ESTADO = 'NUEVA'";
+
+                                    // Preparar la declaración SQL
+                                    $stmt = $conn->prepare($sql);
+
+                                    if ($stmt === false) {
+                                        die("Error en la preparación de la consulta: " . $conn->error);
+                                    }
+
+                                    // Ejecutar la consulta
+                                    $stmt->execute();
+
+                                    // Obtener el resultado de la consulta
+                                    $result = $stmt->get_result();
+
+                                    // Crear un array para almacenar los resultados
+                                    $exercises = [];
+
+                                    // Iterar sobre los resultados y almacenarlos en el array
+                                    while ($row = $result->fetch_assoc()) {
+                                        $exercises[] = $row;
+                                    }
+
+                                    // Cerrar la declaración preparada
+                                    $stmt->close();
+
+                                    // Cerrar conexión
+                                    $conn->close();
+
+                                    // Verificar si se encontraron ejercicios
+                                    if (count($exercises) > 0) {
+                                        // Mostrar los ejercicios como HTML directamente
+                                        foreach ($exercises as $exercise) {
+                                            echo '    <tr onclick="window.location.href=\'visuCelia?id=' . htmlspecialchars($exercise["ID_TICKET"]) . '\'">';
+                                            echo '      <td> '. htmlspecialchars($exercise["FECHA_HECHO"]) . '</td>';
+                                            echo '      <td> '. htmlspecialchars($exercise["ID_TICKET"]) . '</td>';
+                                            echo '      <td> '. htmlspecialchars($exercise["ASUNTO"]) . '</td>';
+                                            echo '      <td> '. htmlspecialchars($exercise["LUGAR"]) . '</td>';
+                                            echo '      <td> '. htmlspecialchars($exercise["PROCESADO"]) . '</td>';
+                                            echo '    </tr>';
+                                        }
+                                    }
+                            ?>                            
                             </tbody>
                         </table>                      
                     </div>                
@@ -61,7 +116,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE) {
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title text-primary border-bottom pb-2">Incidencias en curso</h5> 
-                        <table class="table table-bordered">                                                  
+                        <table class="table table-bordered" style="max-height: 400px; overflow-y: auto; display: block; width: 100%;">                                                                                                   
                             <tbody>
                                 <tr>
                                     <th>Fecha</th>
@@ -70,20 +125,75 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE) {
                                     <th>Localización</th>
                                     <th></th>
                                 </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>                              
+                                <?php
+                                    session_start();
+
+                                    // Configurar la conexión a la base de datos
+                                    $servername = "localhost";
+                                    $username = "alumne";
+                                    $password = "alumne";
+                                    $dbname = "clinica";
+
+                                    // Crear conexión
+                                    $conn = new mysqli($servername, $username, $password, $dbname);
+
+                                    // Verificar la conexión
+                                    if ($conn->connect_error) {
+                                        die("Conexión fallida: " . $conn->connect_error);
+                                    }
+
+                                    // Verificar si la sesión de usuario está definida
+                                        // Obtener el email de la sesión
+                                        $email = $_SESSION['email'];
+
+                                        // Obtener y sanitizar la fecha del parámetro GET
+                                        $date = $_GET['date'];
+                                        $date = htmlspecialchars($date); // Sanitizar la fecha, si es necesario
+
+                                        // Preparar la consulta SQL de manera segura usando declaración preparada
+                                        $sql = "SELECT * FROM TICKETS WHERE ESTADO = 'EN CURSO'";
+
+                                        // Preparar la declaración SQL
+                                        $stmt = $conn->prepare($sql);
+
+                                        if ($stmt === false) {
+                                            die("Error en la preparación de la consulta: " . $conn->error);
+                                        }
+
+                                        // Ejecutar la consulta
+                                        $stmt->execute();
+
+                                        // Obtener el resultado de la consulta
+                                        $result = $stmt->get_result();
+
+                                        // Crear un array para almacenar los resultados
+                                        $exercises = [];
+
+                                        // Iterar sobre los resultados y almacenarlos en el array
+                                        while ($row = $result->fetch_assoc()) {
+                                            $exercises[] = $row;
+                                        }
+
+                                        // Cerrar la declaración preparada
+                                        $stmt->close();
+
+                                        // Cerrar conexión
+                                        $conn->close();
+
+                                        // Verificar si se encontraron ejercicios
+                                        if (count($exercises) > 0) {
+                                            // Mostrar los ejercicios como HTML directamente
+                                            foreach ($exercises as $exercise) {
+                                                echo '    <tr onclick="window.location.href=\'visuCelia?id=' . htmlspecialchars($exercise["ID_TICKET"]) . '\'">';
+                                                echo '      <td> '. htmlspecialchars($exercise["FECHA_HECHO"]) . '</td>';
+                                                echo '      <td> '. htmlspecialchars($exercise["ID_TICKET"]) . '</td>';
+                                                echo '      <td> '. htmlspecialchars($exercise["ASUNTO"]) . '</td>';
+                                                echo '      <td> '. htmlspecialchars($exercise["LUGAR"]) . '</td>';
+                                                echo '      <td> '. htmlspecialchars($exercise["PROCESADO"]) . '</td>';
+                                                echo '    </tr>';
+                                            }
+                                        }
+                                ?>                                  
                             </tbody>
                         </table>  
                     </div>                  
@@ -92,7 +202,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE) {
         </div>   
         <div class="text-center">
             <div>
-                <a href="resueltas.html"><button class="btn btn-primary">Consultar incidencias resueltas</button></a>
+                <a href="resueltas"><button class="btn btn-primary">Consultar incidencias resueltas</button></a>
             </div>
         </div>
         <div class="salir justify-content-end">

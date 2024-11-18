@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario del caso | Clínica Sagrada Família</title>
+    <title>Formulario | Clínica Sagrada Família</title>
     <link rel="stylesheet" href="css/form.css">
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
@@ -14,7 +14,7 @@
     <!--  -->
     <div id="box">
         <!-- Formulario -->
-        <h1 id="titles">Informar de un caso</h1>
+        <h1 id="titles">Notificar un evento</h1>
         <p>Elige como te gustaría informar</p>
         <ul class="tab-bar">
             <li data-num="1" class="tab wave dark">De forma anónima</li>
@@ -25,55 +25,61 @@
         <h3 id="confText">Su identidad solo será conocida por aquellos que manejen su caso de manera confidencial. </h3> 
          
         <div class="formsBox">
-            <form action="codTicket.html" id="formAnom">
-                <label for="fecha">Fecha de la incidencia</label>
+            <!-- Formulario anónimo -->
+            <form action="php/enviar-datosAnom.php" method="POST" id="formAnom" enctype="multipart/form-data">
+                <label for="fecha">Fecha del evento</label>
                 <label for="localizacion">Localización | Área clínica</label><br>
-                <input type="datetime-local" id="fecha">
-                <select id="localizacion">
-                    <option value="hospitalizacion">Hospitalización</option>
-                    <option value="uci">Área cuidados intensivos</option>
-                    <option value="quirofano">Quirófano</option>
-                    <option value="ginecologia">Área ginecología y obstetricia</option>
-                    <option value="urgencias">Urgencias</option>
-                    <option value="reanimacion">Reanimación</option>
-                    <option value="dia-hospital">Hospital de dia</option>
-                    <option value="consultas">Consultas externas</option>
-                    <option value="otros">Otros</option>
+                <input type="datetime-local" id="fecha" name="fecha">
+                <select id="localizacion" name="localizacion">
+                    <option value="Hospitalizacion">Hospitalización</option>
+                    <option value="UCI">Área cuidados intensivos</option>
+                    <option value="Quirofano">Quirófano</option>
+                    <option value="Ginecologia">Área ginecología y obstetricia</option>
+                    <option value="Urgencias">Urgencias</option>
+                    <option value="Reanimacion">Reanimación</option>
+                    <option value="Hospital de dia">Hospital de dia</option>
+                    <option value="Consultas extermas">Consultas externas</option>
+                    <option value="Otros">Otros</option>
                 </select><br>
                 <label for="asunto">Asunto</label><br>
-                <input type="text" id="asunto"><br>
-                <label for="descripcion">Descripción de la incidencia</label><br>
-                <textarea id="descripcion"></textarea><br>
+                <input type="text" id="asunto" name="asunto"><br>
+                <label for="descripcion">Descripción del evento</label><br>
+                <textarea id="descripcion" name="descripcion"></textarea><br>
                 <label for="fichero" id="btn-fichero"><span url=""></span>Subir archivo</label>
-                <input type="file" id="fichero">
+                <input type="file" id="fichero" name="fichero">
+                <!-- para generar el código -->
+                <input type="hidden" id="codigo" name="codigoIncidencia">
                 <input type="submit" id="enviar" onclick="enviarAnom(event)">
             </form>
-            <form action="codTicket.html" id="formConf" style="display: none;">
+            <!-- Formulario confidencial -->
+            <form action="php/enviar-datosConf.php" method="POST" enctype="multipart/form-data" id="formConf" style="display: none;">
                 <label for="nombre">Nombre y apellidos</label>
                 <label for="email">Correo electrónico</label><br>
-                <input type="text" id="nombre">
-                <input type="email" id="email">
-                <label for="fecha">Fecha de la incidencia</label>
+                <input type="text" id="nombre" name="nombre">
+                <input type="email" id="email" name="correo">
+                <label for="fecha">Fecha del evento</label>
                 <label for="localizacion">Localización | Área clínica</label><br>
-                <input type="datetime-local" id="fecha">
-                <select id="localizacion">
-                    <option value="hospitalizacion">Hospitalización</option>
-                    <option value="uci">Área cuidados intensivos</option>
-                    <option value="quirofano">Quirófano</option>
-                    <option value="ginecologia">Área ginecología y obstetricia</option>
-                    <option value="urgencias">Urgencias</option>
-                    <option value="reanimacion">Reanimación</option>
-                    <option value="dia-hospital">Hospital de dia</option>
-                    <option value="consultas">Consultas externas</option>
-                    <option value="otros">Otros</option>
+                <input type="datetime-local" id="fecha" name="fecha">
+                <select id="localizacion" name="localizacion">
+                    <option value="Hospitalizacion">Hospitalización</option>
+                    <option value="UCI">Área cuidados intensivos</option>
+                    <option value="Quirofano">Quirófano</option>
+                    <option value="Ginecologia">Área ginecología y obstetricia</option>
+                    <option value="Urgencias">Urgencias</option>
+                    <option value="Reanimacion">Reanimación</option>
+                    <option value="Hospital de dia">Hospital de dia</option>
+                    <option value="Consultas extermas">Consultas externas</option>
+                    <option value="Otros">Otros</option>
                 </select><br>
                 <label for="asunto">Asunto</label><br>
-                <input type="text" id="asunto"><br>
-                <label for="descripcion">Descripción de la incidencia</label><br>
-                <textarea id="descripcion"></textarea><br>
-                <label for="fichero" id="btn-fichero">Subir archivo</label>
-                <input type="file" id="fichero">
-                <input type="submit" id="enviar" onclick="enviarConf(event)">
+                <input type="text" id="asunto" name="asunto"><br>
+                <label for="descripcion">Descripción del evento</label><br>
+                <textarea id="descripcion" name="descripcion"></textarea><br>
+                <label for="fichero" id="btn-fichero"><span url=""></span>Subir archivo</label>
+                <input type="file" id="fichero" name="fichero">
+                <!-- para generar el código -->
+                <input type="hidden" id="codigo" name="codigoIncidencia">
+                <input type="submit" id="enviar" onclick="enviarConf(event)">          
             </form>
             
         </div>

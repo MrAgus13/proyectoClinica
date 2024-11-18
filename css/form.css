@@ -4,8 +4,9 @@
 }
 
 body{    
-    background-image: url(../img/edificio-sf.jpg);
-    background-size: cover;
+    /* background-image: url(../img/edificio-sf.jpg); */
+    /* background-size: cover; */
+    background: linear-gradient(#10408b, #7a8494);
     margin: 0;
     padding: 0;   
     display: flex;
@@ -80,7 +81,7 @@ p{
 #box{
     width: 55%;
     height: 100vh;
-    background-color: rgba(255,255,255,.80);
+    background-color: rgba(255,255,255,30);
     box-shadow: 0 0 1em rgba(0,0,0,.5);
     margin: 0 auto;
     padding: 3em;

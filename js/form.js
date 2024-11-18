@@ -93,7 +93,7 @@ function enviarAnom(event){
             icon: "success",
             timer: 1000,
           willClose: () => {
-              document.getElementById('formAnom').submit();
+            document.getElementById('formAnom').submit();
           }
       });
       }
@@ -123,3 +123,7 @@ function enviarConf(event){
       }
   });
 }
+
+
+
+

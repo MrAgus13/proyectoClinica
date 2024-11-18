@@ -3,7 +3,7 @@
     background-color: rgba(255, 255, 255, 0.8);
     box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
     padding: 2em;
-    border-radius: 4px;
+    border-radius: 12px;
     max-width: 65.25em; 
     margin: 2em auto;
 }
@@ -81,4 +81,9 @@ img{
 .expanded {
     height: 200px; 
     transition: height 0.3s ease;
+}
+
+.salir{
+    display: flex;
+    justify-content: flex-start;
 }

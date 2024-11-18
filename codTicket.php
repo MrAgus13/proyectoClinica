@@ -1,3 +1,10 @@
+<?php
+if (isset($_GET['id'])) {
+    // Obtener el valor de 'ticket' desde la URL
+    $ticket_id = $_GET['id'];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -15,7 +22,7 @@
     <div class="jumbotron vertical-center">
         <div class="container text-center"> 
             <div class="row"> 
-                <h1> ID TICKET 21847912312093 </h1>   
+                <h1> ID TICKET  <?php echo htmlspecialchars($ticket_id); ?> </h1>   
             </div>
             <br>
             <div class="row">
@@ -45,7 +52,11 @@
                 <div class="col-sm-3">
                 </div>
                 <div class="col-sm-6 col-paddingOff">
-                    <button type="submit" class="w-100 btn btn-primary mb-3">Consultar tiquet</button>
+                    <form action="ticket.php" method="get">
+                        <button type="submit" class="w-100 btn btn-primary mb-3" name="id" value="<?php echo htmlspecialchars($ticket_id); ?>">
+                            Consultar tiquet
+                        </button>
+                    </form>
                 </div>
                 <div class="col-sm-2">
                 </div>

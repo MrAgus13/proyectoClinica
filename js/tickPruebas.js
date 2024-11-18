@@ -1,57 +1,14 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Función para obtener los datos del archivo JSON
-    function fetchData() {
-        fetch('data.json')  // Ruta al archivo JSON que contiene los datos
-            .then(response => response.json())
-            .then(data => {
-                // Solo agregamos la información inicial una vez
-                addInitialInfo(data.initialInfo);
-                
-                // Generar todos los comentarios y ficheros
-                data.comments.forEach(comment => addCommentBox(comment));
-                data.files.forEach(file => addFileBox(file));
-            })
-            .catch(error => console.error("Error al cargar los datos:", error));
-    }
-
     // Elemento contenedor principal donde se agregarán las nuevas cajas
     const ticketInfo = document.getElementById("ticket-info");
 
     // Función para añadir la caja de información inicial
-    function addInitialInfo(info) {
+    function addInitialInfo() {
         // Crear contenedor para la información inicial
-        const initialInfoBox = document.createElement("div");
-        initialInfoBox.classList.add("boxUnDes", "d-flex", "justify-content-between", "align-items-center", "mt-3");
+        const initialInfoBox = document.getElementById("infoBox");
 
-        // Título de la caja y icono de despliegue
-        initialInfoBox.innerHTML = `
-            <p class="p-3 m-0">Información inicial del ticket</p>
-            <img class="dropdownIcon" src="img/dropdownIcon.svg" alt="">
-        `;
-        
         // Crear caja desplegable de información inicial con detalles (abierta por defecto)
-        const initialInfoDetails = document.createElement("div");
-        initialInfoDetails.classList.add("boxDes", "p-3");  // Se elimina 'd-none' para que esté abierta
-        initialInfoDetails.innerHTML = `
-            <div class="d-flex justify-content-between mb-3">
-                <div class="infoPersonal" style="width: 48%;"> <!-- Se ajusta a la mitad del ancho -->
-                    <p>Fecha de la incidencia:</p>
-                    <input type="text" class="form-control" value="${info.date}" readonly>
-                </div>
-                <div class="infoPersonal" style="width: 48%;"> <!-- Se ajusta a la mitad del ancho -->
-                    <p>Localización | Área clínica:</p>
-                    <input type="text" class="form-control" value="${info.location} | ${info.area}" readonly>
-                </div>
-            </div>
-            <div class="infoPersonal mb-3">
-                <p>Asunto:</p>
-                <input type="text" class="form-control" value="${info.subject}" readonly>
-            </div>
-            <div class="infoPersonal mb-3">
-                <p>Descripción de la incidencia:</p>
-                <textarea class="form-control" readonly>${info.description}</textarea>
-            </div>
-        `;
+        const initialInfoDetails = document.getElementById("infoDetails");
 
         // Añadir funcionalidad de mostrar/ocultar detalles
         initialInfoBox.addEventListener("click", () => toggleBox(initialInfoDetails));
@@ -59,74 +16,6 @@ document.addEventListener("DOMContentLoaded", function() {
         // Añadir al contenedor principal
         ticketInfo.appendChild(initialInfoBox);
         ticketInfo.appendChild(initialInfoDetails);
-    }
-
-    // Función para añadir una caja de comentario
-    function addCommentBox(commentData) {
-        // Crear contenedor de comentario
-        const commentBox = document.createElement("div");
-        commentBox.classList.add("boxUnDes", "d-flex", "justify-content-between", "align-items-center", "mt-3");
-
-        // Título de la caja y icono de despliegue
-        commentBox.innerHTML = `
-            <p class="p-3 m-0">Un comentario ha sido agregado</p>
-            <img class="dropdownIcon" src="img/dropdownIcon.svg" alt="">
-        `;
-        
-        // Crear caja desplegable de comentario con detalles
-        const commentDetails = document.createElement("div");
-        commentDetails.classList.add("boxDes", "p-3", "d-none");
-        commentDetails.innerHTML = `
-            <div class="infoPersonal mb-3">
-                <p>Asunto:</p>
-                <input type="text" class="form-control" value="${commentData.subject}" readonly>
-            </div>
-            <div class="infoPersonal mb-3">
-                <p>Descripción de la incidencia:</p>
-                <textarea class="form-control" readonly>${commentData.description}</textarea>
-            </div>
-        `;
-
-        // Añadir funcionalidad de mostrar/ocultar detalles
-        commentBox.addEventListener("click", () => toggleBox(commentDetails));
-
-        // Añadir al contenedor principal
-        ticketInfo.appendChild(commentBox);
-        ticketInfo.appendChild(commentDetails);
-    }
-
-    // Función para añadir una caja de fichero
-    function addFileBox(fileData) {
-        // Crear contenedor de fichero
-        const fileBox = document.createElement("div");
-        fileBox.classList.add("boxUnDes", "d-flex", "justify-content-between", "align-items-center", "mt-3");
-
-        // Título de la caja y icono de despliegue
-        fileBox.innerHTML = `
-            <p class="p-3 m-0">Un fichero ha sido agregado</p>
-            <img class="dropdownIcon" src="img/dropdownIcon.svg" alt="">
-        `;
-        
-        // Crear caja desplegable de fichero con detalles
-        const fileDetails = document.createElement("div");
-        fileDetails.classList.add("boxDes", "p-3", "d-none");
-        fileDetails.innerHTML = `
-            <div class="infoPersonal mb-3">
-                <p>Nombre del fichero:</p>
-                <input type="text" class="form-control" value="${fileData.fileName}" readonly>
-            </div>
-            <div class="infoPersonal mb-3">
-                <p>Descripción del fichero:</p>
-                <textarea class="form-control" readonly>${fileData.fileDescription}</textarea>
-            </div>
-        `;
-
-        // Añadir funcionalidad de mostrar/ocultar detalles
-        fileBox.addEventListener("click", () => toggleBox(fileDetails));
-
-        // Añadir al contenedor principal
-        ticketInfo.appendChild(fileBox);
-        ticketInfo.appendChild(fileDetails);
     }
 
     // Función para controlar la apertura y cierre de las cajas

@@ -9,14 +9,16 @@
 }
 
 body{
-    background-image: url(../img/edificio-sf.jpg);
-    background-size: cover;
+    /* background-image: url(../img/edificio-sf.jpg);
+    background-size: cover; */
+    background: linear-gradient(#10408b, #7a8494);
+    height: 100vh;
     margin: 0;
     padding: 0;
 }
 
 .card {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 30);
     box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
     border-radius: 5px;
     padding: 2%;

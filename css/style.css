@@ -10,23 +10,20 @@ body{
     margin: 0;
     padding: 0;
 }
-.row{
-    margin-right: 0px!important
-}
 
-#titles{
-    font-size: 4.29982rem;
+.row{
+    flex-wrap: nowrap;
 }
 
 #logo{
     width: 100%;
-    background-color: rgba(255,255,255,.80);
 }
 
 #logo img{
-    margin: 1em;
-    float: right;
-    width: 30em;
+    margin: 2em;
+    margin-left: 4em;
+    float: left;
+    width: 20em;
 }
 
 .vertical-center {
@@ -35,20 +32,19 @@ body{
     min-width: 70vh;
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-direction: column;
   }
 
 /* Estilo del titulo*/
 
 .titulo{
     display: flex;
-    justify-content: center;
+    justify-content: left;
     margin-top: 10em;
     margin-bottom: 2em;
-}
-.titulo{
-    font-size: 3.29982rem;
+    font-size: 4.29982rem;
     color: #134189;
-    margin: auto;
 }
 
 
@@ -56,8 +52,8 @@ body{
 
 .cuerpo{
     display: flex;
-    justify-content: center;
-   /* margin-top: 14em; */
+    justify-content: flex-start;
+    margin-top: 14em;
 }
 
 .pFontSize{
@@ -69,8 +65,7 @@ body{
 
 .btn-principal{
     padding: 3em;
-    display: block;
-    float: left;
+    display: inline-block;
     border: 0px;
     background-color: #ffffff;
     border-radius: 5px;
@@ -89,10 +84,7 @@ body{
     color: rgb(255, 255, 255);
 }
 
-#space-code{
-    justify-items: center;  
-    position: relative; /* Necesario para controlar la posición de los elementos dentro */
-}
+
 #space-code p{
     color: #134189;
     font-size: 1.2em;
