@@ -115,6 +115,9 @@ if (isset($_GET['id'])) {
                         }
                         
                     }
+                    else{
+                    
+                    }
             ?>  
         </div>
         

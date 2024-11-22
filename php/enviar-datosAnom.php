@@ -26,8 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Validación de los datos recibidos (opcional, pero recomendable)
     if (empty($fecha) || empty($localizacion) || empty($asunto) || empty($descripcion)) {
-        echo "Por favor, complete todos los campos requeridos.";
-        exit;
+        header('Location: ../formulario?error=1');
+        exit();
     }
 
     // Inicializar la variable para el nombre del archivo
@@ -37,10 +37,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['fichero']) && $_FILES['fichero']['error'] == 0) {
         // Carpeta donde se guardarán los archivos (asegúrate de crearla y darle permisos de escritura)
         $directorioDestino = "uploads/";  // Debes tener esta carpeta creada
-        $nombreArchivo = $directorioDestino . basename($_FILES['fichero']['name']);
+        $nombreArchivo = basename($_FILES['fichero']['name']);
+        $rutaArchivo = $directorioDestino . $nombreArchivo;
         
         // Mover el archivo desde la ubicación temporal al destino
-        if (move_uploaded_file($_FILES['fichero']['tmp_name'], $nombreArchivo)) {
+        if (move_uploaded_file($_FILES['fichero']['tmp_name'], $rutaArchivo)) {
             echo "Archivo cargado correctamente.";
         } else {
             echo "Error al cargar el archivo.";
@@ -53,23 +54,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Preparar la consulta SQL para insertar el ticket
     $stmt = $conn->prepare("INSERT INTO TICKETS (ID_TICKET, FECHA_HECHO, LUGAR, ASUNTO, DESCRIPCION, ID_USUARIO) VALUES (?, ?, ?, ?,?, ?)");
 
-    $usuario = 1;
+    $usuario = 1;  // Ejemplo: asumiendo que el ID de usuario es 1
     // Vincular los parámetros
     $stmt->bind_param("issssi", $idTicket, $fecha, $localizacion, $asunto, $descripcion, $usuario);
 
     // Ejecutar la consulta
     if ($stmt->execute()) {
+        // Si el ticket se inserta correctamente, insertar el archivo en la tabla ARCHIVOS
+        if ($nombreArchivo) {
+            $stmt = $conn->prepare("INSERT INTO ARCHIVOS (NOMBRE_ARCHIVO, RUTA, ID_TICKET) VALUES (?, ?, ?)");
+            $stmt->bind_param("ssi", $nombreArchivo, $rutaArchivo, $idTicket);
+
+            if ($stmt->execute()) {
+                echo "Archivo asociado al ticket correctamente.";
+            } else {
+                echo "Error al asociar el archivo al ticket: " . $stmt->error;
+            }
+            $stmt->close();
+        }
+        // Redirigir a la página del ticket con el ID
         header('Location: ../codTicket?id=' . $idTicket);
     } else {
         echo "Error al insertar ticket: " . $stmt->error;
-        // Generar un ID de ticket aleatorio
-        $idTicket = rand(10000000, 99999999);
-
-        // Preparar la consulta SQL para insertar el ticket
-        $stmt = $conn->prepare("INSERT INTO TICKETS (ID_TICKET, FECHA_HECHO, LUGAR, ASUNTO, DESCRIPCION, ID_USUARIO) VALUES (?, ?, ?, ?, ?,?)");
-
-        // Vincular los parámetros
-        $stmt->bind_param("issssi", $idTicket, $fecha, $localizacion, $asunto, $descripcion, $usuario);
     }
 
     // Cerrar la declaración preparada

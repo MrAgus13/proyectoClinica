@@ -9,65 +9,63 @@ body{
     margin: 0;
     padding: 0;
 }
+
+.logo img{
+    margin-bottom: 20%;
+    width: 20em;
+}
+
+/*Caja del login*/
+
+.formContainer{
+    background-color: rgba(255,255,255,.80);
+    box-shadow: 0 0 1em rgba(0,0,0,.5);
+    padding: 2%;
+}
+
 h1{
     text-align: center;
     font-family: 'Naste regular';
     cursor: default;
     color: #134189;
 }
-#titles{
-    font-size: 4.29982rem;
+
+form{
+    text-align: center;
 }
 
-#logo{
-    width: 100%;
-    height: 7.5em;
-}
-
-#logo img{
-    margin: 1em;
-    float: right;
-    width: 30em;
-    margin-bottom: 7em;
-}
-
-/*ES LA CAJA QUE CONTIENE EL LOGIN*/
-#formContainer{
-    display: flex;
-    justify-content: center;
-
-    background-color: rgba(255,255,255,.80) ;
-    width: 100%;
-    margin: 0 auto;
-    box-shadow: 0 0 1em rgba(0,0,0,.5);
-
-}
-
-#form_div{
-    width: 100%;
-    padding-top: 70px;
-    padding-bottom: 70px;
-}
-
-#form_div input {
+form input{
     margin-top: 1em;
     margin-bottom: 1em;
     border: none;
     background-color: #e5e5e5;
     border-radius: 5px;
-}
-
-#form{
-    text-align: center;
-}
-
-#mail, #password{
     width: 25%;
     padding: .8em;
-    margin-top: 1em;
-    margin-bottom: 1em;
 }
-/* AQUI TENEMOS EL BOTON DE INICIO DE SESIÓN */
+
+.form-check{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-check-input{
+    cursor: pointer;
+    margin-right: 1%;
+    align-items: center;
+}
+
+.form-check-input:focus{
+    box-shadow: 0 0 10px #134189;
+    outline: 1px solid #134189; 
+}
+
+input:focus{
+    box-shadow: 0 0 10px #134189;
+    outline: 1px solid #134189;    
+}
+
 .button_login{  
     width: 25%;
     margin: 0 auto;
@@ -82,34 +80,20 @@ h1{
     transition: background-color 0.3s ease;
     border-radius: 5px;
 }
-#form > label:nth-child(5), #form > label:nth-child(1){
-    float: left;
-    margin-left: 37.3%;
-}
 
 .button_login:hover{
-    background-color: #0c316d;
-    
-}
-#remember{
-    margin-top: 1em;
-    margin-bottom: 1em;
-   cursor: pointer;
+    background-color: #0c316d; 
 }
 
 /* ESTO PARA TENER LO DEL */
 input::placeholder{
     font-size: 1.1em;
     opacity: .7;
-    
 }
 
-input:focus{
-    box-shadow: 0 0 10px #134189;
-    outline: 1px solid #134189;    
-}
 
-/* Shake animation */
+
+/*Error*/
 @keyframes shake {
     0% { transform: translateX(0); }
     25% { transform: translateX(-5px); }
@@ -118,11 +102,7 @@ input:focus{
     100% { transform: translateX(5px); }
 }
 
-/* Style for the red border when input is invalid */
 .invalid-input {
-    border: 2px solid red !important;
+    border: 1.5px solid red !important;
     animation: shake 0.5s ease; /* Apply shake animation */
 }
-
-
-

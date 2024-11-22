@@ -1,3 +1,13 @@
+<?php
+session_start();  // Inicia la sesión PHP
+
+// Verificar si la sesión está activa (si el usuario ha iniciado sesión)
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE) {
+    // Si no está logueado, redirigir al login
+    header('Location: login');
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

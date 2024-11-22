@@ -24,3 +24,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+function validarNumero(event) {
+    // Verifica si se presionó la tecla Enter
+    if (event.key === 'Enter') {
+        var numero = document.getElementById("codigoIncidencia").value;
+
+        // Validar si el número tiene exactamente 8 dígitos
+        if (/^\d{8}$/.test(numero)) {
+            alert("Número válido. ¡Tique confirmado!");
+           
+        } else {
+            alert("Por favor, ingresa un número de 8 dígitos.");
+        }
+    }
+}

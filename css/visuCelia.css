@@ -1,4 +1,10 @@
-
+*{
+    font-family: 'Naste Semibold';
+}
+body{
+    background: linear-gradient(#10408b, #7a8494);
+    height: 100vh;
+}
 .box {
     background-color: rgba(255, 255, 255, 0.8);
     box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
@@ -19,8 +25,9 @@
     flex: 1;
     text-align: center;
     padding: 0.5em;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
+    border-bottom: 1px solid #e0e0e0;
+    border-top: 1px solid #e0e0e0;
+
 }
 .form-section {
     margin-top: 1em;
@@ -64,14 +71,17 @@
 
 }
 
+p {
+    margin-top: 10px;
+}
 .btns button {
-    width: 58%;
-   /* padding: .2em; */
+    width: 21%;
+    padding: .7em;
     cursor: pointer;
 }
 .form-select {
     margin-left: 2em;
-    margin-right: 28em;
+    margin-right: 25em;
 }
 
 img{
@@ -85,5 +95,5 @@ img{
 
 .salir{
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between
 }

@@ -7,89 +7,46 @@
 body{
     background-image: url(../img/edificio-sf.jpg);
     background-size: cover;
-    margin: 0;
-    padding: 0;
+    overflow: hidden;
 }
 
-.row{
-    flex-wrap: nowrap;
-}
-
-#logo{
-    width: 100%;
-}
-
-#logo img{
-    margin: 2em;
-    margin-left: 4em;
-    float: left;
+.logo img{
+    margin-bottom: 30%;
     width: 20em;
 }
 
-.vertical-center {
-    min-height: 100%;  
-    min-height: 75vh;
-    min-width: 70vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
-
-/* Estilo del titulo*/
-
 .titulo{
-    display: flex;
-    justify-content: left;
-    margin-top: 10em;
-    margin-bottom: 2em;
     font-size: 4.29982rem;
     color: #134189;
 }
 
-
 /* Estilo de los botones de selección */
 
-.cuerpo{
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 14em;
-}
-
-.pFontSize{
+.btn-principal{
+    padding: 5%;
+    border: none;
+    background-color: #ffffff;
+    border-radius: 40px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     color: #134189;
     text-align: center;
-    font-size: 22px !important;
-    margin-bottom: 0!important;
-}
-
-.btn-principal{
-    padding: 3em;
-    display: inline-block;
-    border: 0px;
-    background-color: #ffffff;
-    border-radius: 5px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    font-size: 22px;
 }
 
 .btn-principal:hover{
     cursor: pointer;
     background-color: #134189;
-    
-    transform: scale(0.98);
-    
-}
-
-.btn-principal:hover p{
     color: rgb(255, 255, 255);
+    transform: scale(0.98);
 }
 
-
-#space-code p{
+#textCod{
     color: #134189;
-    font-size: 1.2em;
+    font-size: 22px;
+    margin-bottom: 1%;
 }
-#space-code input {
+
+#codigoIncidencia{
     padding: 0.5em;
     font-size: 1.2em;
     background-color: #e5e5e5;
@@ -99,23 +56,29 @@ body{
     text-align: center;
     outline: none;
     box-shadow: none;
-    
 }
+
+/* Flecha azul para enviar código */
 
 input::placeholder{
     opacity: .7
 }
+
 .animate__animated.animate__fadeIn {
     --animate-duration: .4s;
 }
 
-#icon{
-    position: absolute;
-    top: 22px;
-    right: 10px;
-    z-index: 10;
-    width: 70px;
-}
 .animate__animated.animate__fadeIn{
     --animate-duration: 2s;
+}
+
+.col-md-5{
+    position: relative;
+}
+.col-md-5 dotlottie-player{
+    z-index: 10;
+    width: 70px;
+    position: absolute;
+    top: 23px;
+    left: 320px;
 }

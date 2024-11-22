@@ -28,7 +28,7 @@ var waveBtn = (function () {
           newRound.style.top = y + "%";
           newRound.classList.add("anim");
 
-          indicator.style.marginLeft = indi + (this.dataset.num - 1) * 24 + '%';
+          indicator.style.marginLeft = indi + (this.dataset.num - 1) * 40.6 + '%';
 
           // Toggle forms with animation
           if (boolean) {
@@ -73,9 +73,30 @@ var waveBtn = (function () {
   });
 })();
 
+
+
 //Pop up
 function enviarAnom(event){
   event.preventDefault();
+  
+  // Obtener los valores de los campos del formulario
+  const fecha = document.getElementById('fecha').value;
+  const localizacion = document.getElementById('localizacion').value;
+  const asunto = document.getElementById('asunto').value;
+  const descripcion = document.getElementById('descripcion').value;
+
+  // Verificar que todos los campos obligatorios están completos
+  if (!fecha || !localizacion || !asunto || !descripcion) {
+      Swal.fire({
+          title: "Campos incompletos",
+          text: "Por favor, complete todos los campos antes de enviar.",
+          icon: "error",
+          confirmButtonColor: "#134189",
+          confirmButtonText: "OK"
+      });
+      return; // Evita que se proceda con el envío del formulario
+  }
+
   Swal.fire({
     title: "Antes de enviar",
     text: "Recuerda no incluir información confidencial de pacientes o trabajadores.",
@@ -88,7 +109,7 @@ function enviarAnom(event){
   }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
-            title: "Enviado!",
+            title: "¡Enviado!",
             text: "Su incidencia ha sido enviada.",
             icon: "success",
             timer: 1000,
@@ -102,6 +123,27 @@ function enviarAnom(event){
 
 function enviarConf(event){
   event.preventDefault();
+  
+  // Obtener los valores de los campos del formulario
+  const nombre = document.getElementById('nombre').value;
+  const email = document.getElementById('email').value;
+  const fecha = document.getElementById('fecha').value;
+  const localizacion = document.getElementById('localizacion').value;
+  const asunto = document.getElementById('asunto').value;
+  const descripcion = document.getElementById('descripcion').value;
+
+  // Verificar que todos los campos obligatorios están completos
+  if (!nombre || !email || !fecha || !localizacion || !asunto || !descripcion) {
+      Swal.fire({
+          title: "Campos incompletos",
+          text: "Por favor, complete todos los campos antes de enviar.",
+          icon: "error",
+          confirmButtonColor: "#134189",
+          confirmButtonText: "OK"
+      });
+      return; // Evita que se proceda con el envío del formulario
+  }
+
   Swal.fire({
     title: "Antes de enviar",
     text: "Recuerda no incluir información confidencial de pacientes o trabajadores.",
@@ -110,20 +152,19 @@ function enviarConf(event){
     confirmButtonColor: "#134189",
     confirmButtonText: "Enviar",
     cancelButtonColor: "#d33",
-    cancelButtonText: "Cancelar"
+    cancelButtonText: "Cancelar",
 
   }).then((result) => {
       if (result.isConfirmed) {
           document.getElementById('formConf').submit();
           Swal.fire({
-              title: "Enviado!",
+              title: "¡Enviado!",
               text: "Su incidencia ha sido enviada.",
               icon: "success",
           });
       }
   });
 }
-
 
 
 
