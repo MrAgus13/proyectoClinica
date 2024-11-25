@@ -14,27 +14,30 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Incidencias</title>
+    <script defer src="bootstrap/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.css">   
     <link rel="stylesheet" href="css/fonts.css">  
     <link rel="stylesheet" href="css/pPpalCelia.css">
-    <script defer src="bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
+    <div class="salir justify-content-end" style="margin-right:17%">
+        <a href="php/cerrar-sesion.php"><img src="img/salir.svg" alt=""></a>
+    </div>
     <div class="container-fluid">
         <div class="row justify-content-evenly">
             <!-- Tarjeta nuevas incidencias -->
-            <div class="col-md-5 mb-4">
-                <div class="card shadow-sm">
+            <div class="col-md-8 mb-4">
+                <div class="card shadow-sm" style="height: 60dvh">
                     <div class="card-body">
-                        <h5 class="card-title text-primary border-bottom pb-2">Notificaciones resueltas</h5>                                     
-                        <table class="table table-bordered">                                                  
-                            <tbody>
+                        <h5 class="card-title text-primary pb-2">Notificaciones resueltas</h5>                                     
+                        <table class="table table-bordered" style="max-height: 28em; overflow-y: auto; display: block; width: 100%; cursor: pointer;">                                                  
+                            <tbody style="width:100%;display: inline-table;">
                                 <tr>
                                     <th>Fecha</th>
                                     <th>ID</th>
                                     <th>Asunto</th>
                                     <th>Localización</th>
-                                    <th></th>
+                                    <th>Datos adjuntos</th>
                                 </tr>
                                 <?php
                                     session_start();
@@ -54,57 +57,74 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE) {
                                     }
 
                                     // Verificar si la sesión de usuario está definida
-                                        // Obtener el email de la sesión
-                                        $email = $_SESSION['email'];
+                                    // Obtener el email de la sesión
+                                    $email = $_SESSION['email'];
 
-                                        // Obtener y sanitizar la fecha del parámetro GET
-                                        $date = $_GET['date'];
-                                        $date = htmlspecialchars($date); // Sanitizar la fecha, si es necesario
+                                    // Preparar la consulta SQL para obtener tickets con estado 'Resuelto'
+                                    $sql = "SELECT * FROM TICKETS WHERE ESTADO = 'Resuelto'";
 
-                                        // Preparar la consulta SQL de manera segura usando declaración preparada
-                                        $sql = "SELECT * FROM TICKETS WHERE ESTADO = 'RESUELTA'";
+                                    // Preparar la declaración SQL
+                                    $stmt = $conn->prepare($sql);
+                                    if ($stmt === false) {
+                                        die("Error en la preparación de la consulta: " . $conn->error);
+                                    }
 
-                                        // Preparar la declaración SQL
-                                        $stmt = $conn->prepare($sql);
+                                    // Ejecutar la consulta
+                                    $stmt->execute();
 
-                                        if ($stmt === false) {
-                                            die("Error en la preparación de la consulta: " . $conn->error);
-                                        }
+                                    // Obtener el resultado de la consulta
+                                    $result = $stmt->get_result();
 
-                                        // Ejecutar la consulta
-                                        $stmt->execute();
+                                    // Crear un array para almacenar los resultados de los tickets
+                                    $exercises = [];
 
-                                        // Obtener el resultado de la consulta
-                                        $result = $stmt->get_result();
+                                    // Iterar sobre los resultados y almacenarlos en el array
+                                    while ($row = $result->fetch_assoc()) {
+                                        $exercises[] = $row;
+                                    }
 
-                                        // Crear un array para almacenar los resultados
-                                        $exercises = [];
+                                    // Cerrar la declaración preparada
+                                    $stmt->close();
 
-                                        // Iterar sobre los resultados y almacenarlos en el array
-                                        while ($row = $result->fetch_assoc()) {
-                                            $exercises[] = $row;
-                                        }
+                                    // Ahora podemos recorrer los resultados de los tickets y mostrar la información
+                                    if (count($exercises) > 0) {
+                                        foreach ($exercises as $exercise) {
+                                            // Mostrar la información del ticket
+                                            echo '<tr onclick="window.location.href=\'visuCelia?id=' . htmlspecialchars($exercise["ID_TICKET"]) . '\'">';
+                                            echo '  <td>' . htmlspecialchars($exercise["FECHA_HECHO"]) . '</td>';
+                                            echo '  <td>' . htmlspecialchars($exercise["ID_TICKET"]) . '</td>';
+                                            echo '  <td>' . htmlspecialchars($exercise["ASUNTO"]) . '</td>';
+                                            echo '  <td>' . htmlspecialchars($exercise["LUGAR"]) . '</td>';
 
-                                        // Cerrar la declaración preparada
-                                        $stmt->close();
+                                            // Obtener los archivos relacionados con este ticket
+                                            $ticket_id = $exercise["ID_TICKET"];  // Asegúrate de usar el ID del ticket actual
 
-                                        // Cerrar conexión
-                                        $conn->close();
+                                            // Preparar la consulta SQL para obtener los archivos de este ticket
+                                            $sql_archivos = "SELECT RUTA_ARCHIVO, NOMBRE_ARCHIVO FROM ARCHIVOS WHERE ID_TICKET = ?";
+                                            $stmt_archivos = $conn->prepare($sql_archivos);
+                                            $stmt_archivos->bind_param("i", $ticket_id);  // Vincula el ID del ticket a la consulta
+                                            $stmt_archivos->execute();
+                                            $result_archivos = $stmt_archivos->get_result();
 
-                                        // Verificar si se encontraron ejercicios
-                                        if (count($exercises) > 0) {
-                                            // Mostrar los ejercicios como HTML directamente
-                                            foreach ($exercises as $exercise) {
-                                                echo '    <tr onclick="window.location.href=\'visuCelia?id=' . htmlspecialchars($exercise["ID_TICKET"]) . '\'">';
-                                                echo '      <td> '. htmlspecialchars($exercise["FECHA_HECHO"]) . '</td>';
-                                                echo '      <td> '. htmlspecialchars($exercise["ID_TICKET"]) . '</td>';
-                                                echo '      <td> '. htmlspecialchars($exercise["ASUNTO"]) . '</td>';
-                                                echo '      <td> '. htmlspecialchars($exercise["LUGAR"]) . '</td>';
-                                                echo '      <td> '. htmlspecialchars($exercise["PROCESADO"]) . '</td>';
-                                                echo '    </tr>';
+                                            // Si hay archivos, mostrar un ícono o algo similar
+                                            if ($result_archivos->num_rows > 0) {
+                                                echo '  <td style="display: flex;">';
+                                                echo '    <img width="20px" src="img/file.png">';  // Icono de archivo
+                                                echo '  </td>';
+                                            } else {
+                                                echo '  <td></td>';  // Si no hay archivos, mostrar una celda vacía
                                             }
+
+                                            echo '</tr>';
+
+                                            // Cerrar la declaración de archivos
+                                            $stmt_archivos->close();
                                         }
-                                ?>                               
+                                    }
+
+                                    // Cerrar la conexión a la base de datos
+                                    $conn->close();
+                                ?>
                             </tbody>
                         </table>                      
                     </div>                

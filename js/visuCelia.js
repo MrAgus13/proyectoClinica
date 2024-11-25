@@ -8,8 +8,8 @@ function cerrarTiquet(ticketId) {
         confirmButtonText: "Enviar",
         cancelButtonColor: "#d33",
         cancelButtonText: "Cancelar"
-      }).then((result) => {
-          if (result.isConfirmed) {
+    }).then((result) => {
+        if (result.isConfirmed) {
             fetch('php/cerrar_tiquet.php', {
                 method: 'POST',
                 headers: {
@@ -24,7 +24,10 @@ function cerrarTiquet(ticketId) {
                         title: "¡Cerrado!",
                         text: "Su incidencia ha sido cerrada.",
                         icon: "success",
-                        timer: 1000,
+                        timer: 1000, 
+                        didClose: () => {
+                            window.location.href = window.location.href;
+                        }
                     });
                 } else {
                     alert("Error al cerrar el tiquet: " + data.error);
@@ -38,8 +41,7 @@ function cerrarTiquet(ticketId) {
                     timer: 1000,
                 });
             });
-            
-          }
-      });
-      
+        }
+    });
 }
+

@@ -12,7 +12,6 @@ body{
     display: flex;
 }
 
-
  /*pestañas*/
 .tab-bar {
     margin: 20px auto;
@@ -45,8 +44,6 @@ body{
     margin-left: 0;
     transition: margin 0.5s ease;
 }
-
-
 /*fin pestañas*/
 
 h3{
@@ -143,6 +140,7 @@ label{
 
 #asunto {
     width: 89%;
+    height: 25px;
 }
 
 #fecha{
@@ -150,6 +148,7 @@ label{
     margin-right: 7.8%;
     cursor: pointer;
     margin-bottom: 0.5em;
+    height: 25px;
 }
 
 #localizacion{
@@ -187,16 +186,16 @@ label{
     width: 15%;
     padding: .8em;
     text-align: center;
-    background-color: #7c7c7cb6; /* Color verde */
-    color: white; /* Texto en blanco */
+    background-color: #7c7c7cb6; 
+    color: white; 
     border: none;
     cursor: pointer;
-    font-size: .8em; /* Tamaño de la letra */
-    transition: background-color 0.3s ease; /* Transición suave */
+    font-size: .8em; 
+    transition: background-color 0.3s ease; 
     border-radius: 5px;
 }
 #btn-fichero:hover {
-    background-color: #646464b6; /* Color verde más oscuro */
+    background-color: #646464b6; 
 }
 
 /*Formulario confidencial*/
@@ -209,6 +208,7 @@ label{
     width: 40%;
     margin-right: 7.8%;
     cursor: pointer;
+    height: 25px;
 }
 
 #formConf #fecha {
@@ -220,6 +220,7 @@ label{
 
 #email {
     width: 40%;
+    height: 25px;
 }
 
 
@@ -278,3 +279,4 @@ label{
 .fade-out {
     animation: fadeOut 0.5s ease-out forwards;
 }
+

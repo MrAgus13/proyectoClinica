@@ -1,0 +1,48 @@
+abr. 15, 2024 8:41:41 A. M. biz.ganttproject.LoggerImpl debug
+DETALLADO: Creating main frame...
+abr. 15, 2024 8:41:41 A. M. biz.ganttproject.LoggerImpl debug
+DETALLADO: 1. loading look'n'feels
+abr. 15, 2024 8:41:41 A. M. biz.ganttproject.LoggerImpl debug
+DETALLADO: 2. loading options
+abr. 15, 2024 8:41:41 A. M. biz.ganttproject.LoggerImpl debug
+DETALLADO: 3. creating menus...
+abr. 15, 2024 8:41:41 A. M. biz.ganttproject.LoggerImpl debug
+DETALLADO: 4. creating views...
+abr. 15, 2024 8:41:42 A. M. biz.ganttproject.LoggerImpl debug
+DETALLADO: 5. calculating size and packing...
+abr. 15, 2024 8:41:42 A. M. biz.ganttproject.LoggerImpl debug
+DETALLADO: 6. changing language ...
+abr. 15, 2024 8:41:42 A. M. biz.ganttproject.LoggerImpl debug
+DETALLADO: 7. first attempt to restore bounds
+abr. 15, 2024 8:41:42 A. M. biz.ganttproject.LoggerImpl debug
+DETALLADO: 8. finalizing...
+abr. 15, 2024 8:41:48 A. M. com.bardsoftware.eclipsito.update.DownloadWorker downloadZip
+INFORMACIÓN: Will download 15351580 bytes and save as file C:\Users\Alumno\AppData\Local\Temp\ganttproject-update12682571704467587224zip
+abr. 15, 2024 8:41:59 A. M. com.bardsoftware.eclipsito.update.DownloadWorker downloadZip
+INFORMACIÓN: Will download 15389571 bytes and save as file C:\Users\Alumno\AppData\Local\Temp\ganttproject-update10834626016081970950zip
+abr. 15, 2024 8:42:06 A. M. com.bardsoftware.eclipsito.update.DownloadWorker downloadZip
+INFORMACIÓN: Will download 8572340 bytes and save as file C:\Users\Alumno\AppData\Local\Temp\ganttproject-update10639956875860643026zip
+abr. 15, 2024 8:42:31 A. M. net.sourceforge.ganttproject.GPLogger log
+INFORMACIÓN: [GanttOptions] save(): finished!!
+abr. 15, 2024 8:42:31 A. M. biz.ganttproject.LoggerImpl debug
+DETALLADO: Creating main frame...
+abr. 15, 2024 8:42:31 A. M. biz.ganttproject.LoggerImpl debug
+DETALLADO: 1. loading look'n'feels
+abr. 15, 2024 8:42:31 A. M. biz.ganttproject.LoggerImpl debug
+DETALLADO: 2. loading options
+abr. 15, 2024 8:42:31 A. M. biz.ganttproject.LoggerImpl debug
+DETALLADO: 3. creating menus...
+abr. 15, 2024 8:42:32 A. M. biz.ganttproject.LoggerImpl debug
+DETALLADO: 4. creating views...
+abr. 15, 2024 8:42:32 A. M. biz.ganttproject.LoggerImpl debug
+DETALLADO: 5. calculating size and packing...
+abr. 15, 2024 8:42:32 A. M. biz.ganttproject.LoggerImpl debug
+DETALLADO: 6. changing language ...
+abr. 15, 2024 8:42:32 A. M. biz.ganttproject.LoggerImpl debug
+DETALLADO: 7. first attempt to restore bounds
+abr. 15, 2024 8:42:32 A. M. biz.ganttproject.LoggerImpl debug
+DETALLADO: 8. finalizing...
+abr. 15, 2024 8:42:32 A. M. net.sourceforge.ganttproject.GPLogger log
+INFORMACIÓN: Deleting old auto-save files
+abr. 15, 2024 9:09:01 A. M. net.sourceforge.ganttproject.GPLogger log
+INFORMACIÓN: [GanttOptions] save(): finished!!

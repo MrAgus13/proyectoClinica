@@ -22,21 +22,27 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE) {
 </head>
 <body>
     <div class="container-fluid">
+        <div class="salir justify-content-end">
+            <a href="php/cerrar-sesion.php"><img src="img/salir.svg" alt=""></a>
+        </div>
         <div class="row justify-content-evenly">
             <!-- Tarjeta nuevas incidencias -->
             <div class="col-md-5 mb-4">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <h5 class="card-title text-primary border-bottom pb-2">Nuevas incidencias</h5>                                     
-                        <table class="table table-bordered" style="max-height: 400px; overflow-y: auto; display: block; width: 100%;">                                                 
-                            <tbody>
-                            <tr>
+                        <h5 class="card-title text-primary pb-2">Nuevas incidencias</h5>                                     
+                        <table class="table table-bordered " style="max-height: 40em; overflow-y: auto; display: block; width: 100%; cursor: pointer;">                                                 
+                            <thead>
+                                <tr>
                                     <th>Fecha</th>
                                     <th>ID</th>
                                     <th>Asunto</th>
                                     <th>Localización</th>
-                                    <th></th>
-                            </tr>
+                                    <th>Datos adjuntos</th>
+                                </tr>
+                            </thead>
+                            
+                            <tbody>
                             <?php
                                 session_start();
 
@@ -55,57 +61,75 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE) {
                                 }
 
                                 // Verificar si la sesión de usuario está definida
-                                    // Obtener el email de la sesión
-                                    $email = $_SESSION['email'];
+                                // Obtener el email de la sesión
+                                $email = $_SESSION['email'];
 
-                                    // Obtener y sanitizar la fecha del parámetro GET
-                                    $date = $_GET['date'];
-                                    $date = htmlspecialchars($date); // Sanitizar la fecha, si es necesario
+                                // Preparar la consulta SQL para obtener tickets con estado 'NUEVA'
+                                $sql = "SELECT * FROM TICKETS WHERE ESTADO = 'NUEVA'";
 
-                                    // Preparar la consulta SQL de manera segura usando declaración preparada
-                                    $sql = "SELECT * FROM TICKETS WHERE ESTADO = 'NUEVA'";
+                                // Preparar la declaración SQL
+                                $stmt = $conn->prepare($sql);
+                                if ($stmt === false) {
+                                    die("Error en la preparación de la consulta: " . $conn->error);
+                                }
 
-                                    // Preparar la declaración SQL
-                                    $stmt = $conn->prepare($sql);
+                                // Ejecutar la consulta
+                                $stmt->execute();
 
-                                    if ($stmt === false) {
-                                        die("Error en la preparación de la consulta: " . $conn->error);
-                                    }
+                                // Obtener el resultado de la consulta
+                                $result = $stmt->get_result();
 
-                                    // Ejecutar la consulta
-                                    $stmt->execute();
+                                // Crear un array para almacenar los resultados de los tickets
+                                $exercises = [];
 
-                                    // Obtener el resultado de la consulta
-                                    $result = $stmt->get_result();
+                                // Iterar sobre los resultados y almacenarlos en el array
+                                while ($row = $result->fetch_assoc()) {
+                                    $exercises[] = $row;
+                                }
 
-                                    // Crear un array para almacenar los resultados
-                                    $exercises = [];
+                                // Cerrar la declaración preparada
+                                $stmt->close();
 
-                                    // Iterar sobre los resultados y almacenarlos en el array
-                                    while ($row = $result->fetch_assoc()) {
-                                        $exercises[] = $row;
-                                    }
+                                // Ahora podemos recorrer los resultados de los tickets y mostrar la información
+                                if (count($exercises) > 0) {
+                                    foreach ($exercises as $exercise) {
+                                        // Mostrar la información del ticket
+                                        echo '<tr onclick="window.location.href=\'visuCelia?id=' . htmlspecialchars($exercise["ID_TICKET"]) . '\'">';
+                                        echo '  <td>' . htmlspecialchars($exercise["FECHA_HECHO"]) . '</td>';
+                                        echo '  <td>' . htmlspecialchars($exercise["ID_TICKET"]) . '</td>';
+                                        echo '  <td>' . htmlspecialchars($exercise["ASUNTO"]) . '</td>';
+                                        echo '  <td>' . htmlspecialchars($exercise["LUGAR"]) . '</td>';
 
-                                    // Cerrar la declaración preparada
-                                    $stmt->close();
+                                        // Obtener los archivos relacionados con este ticket
+                                        $ticket_id = $exercise["ID_TICKET"];  // Asegúrate de usar el ID del ticket actual
 
-                                    // Cerrar conexión
-                                    $conn->close();
+                                        // Preparar la consulta SQL para obtener los archivos de este ticket
+                                        $sql_archivos = "SELECT RUTA_ARCHIVO, NOMBRE_ARCHIVO FROM ARCHIVOS WHERE ID_TICKET = ?";
+                                        $stmt_archivos = $conn->prepare($sql_archivos);
+                                        $stmt_archivos->bind_param("i", $ticket_id);  // Vincula el ID del ticket a la consulta
+                                        $stmt_archivos->execute();
+                                        $result_archivos = $stmt_archivos->get_result();
 
-                                    // Verificar si se encontraron ejercicios
-                                    if (count($exercises) > 0) {
-                                        // Mostrar los ejercicios como HTML directamente
-                                        foreach ($exercises as $exercise) {
-                                            echo '    <tr onclick="window.location.href=\'visuCelia?id=' . htmlspecialchars($exercise["ID_TICKET"]) . '\'">';
-                                            echo '      <td> '. htmlspecialchars($exercise["FECHA_HECHO"]) . '</td>';
-                                            echo '      <td> '. htmlspecialchars($exercise["ID_TICKET"]) . '</td>';
-                                            echo '      <td> '. htmlspecialchars($exercise["ASUNTO"]) . '</td>';
-                                            echo '      <td> '. htmlspecialchars($exercise["LUGAR"]) . '</td>';
-                                            echo '      <td> '. htmlspecialchars($exercise["PROCESADO"]) . '</td>';
-                                            echo '    </tr>';
+                                        // Si hay archivos, mostrar un ícono o algo similar
+                                        if ($result_archivos->num_rows > 0) {
+                                            echo '  <td style="display: flex; justify-content: center;">';
+                                            echo '    <img width="20px" src="img/file.png">';  // Icono de archivo
+                                            echo '  </td>';
+                                        } else {
+                                            echo '  <td></td>';
                                         }
+
+                                        echo '  <td></td>';  // Puedes poner algo más aquí si es necesario
+                                        echo '</tr>';
+
+                                        // Cerrar la declaración de archivos
+                                        $stmt_archivos->close();
                                     }
-                            ?>                            
+                                }
+
+                                // Cerrar la conexión a la base de datos
+                                $conn->close();
+                            ?>                  
                             </tbody>
                         </table>                      
                     </div>                
@@ -115,87 +139,106 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE) {
             <div class="col-md-5 mb-4">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <h5 class="card-title text-primary border-bottom pb-2">Incidencias en curso</h5> 
-                        <table class="table table-bordered" style="max-height: 400px; overflow-y: auto; display: block; width: 100%;">                                                                                                   
-                            <tbody>
+                        <h5 class="card-title text-primary pb-2">Incidencias en curso</h5> 
+                        <table class="table table-bordered" style="max-height: 30em; overflow-y: auto; display: block; width: 100%; cursor: pointer;">                                                                                                   
+                            <thead>
                                 <tr>
                                     <th>Fecha</th>
                                     <th>ID</th>
                                     <th>Asunto</th>
                                     <th>Localización</th>
-                                    <th></th>
+                                    <th>Datos adjuntos</th>
                                 </tr>
-                                <?php
-                                    session_start();
+                            </thead>
+                            <tbody>
+                            <?php
+                                session_start();
 
-                                    // Configurar la conexión a la base de datos
-                                    $servername = "localhost";
-                                    $username = "alumne";
-                                    $password = "alumne";
-                                    $dbname = "clinica";
+                                // Configurar la conexión a la base de datos
+                                $servername = "localhost";
+                                $username = "alumne";
+                                $password = "alumne";
+                                $dbname = "clinica";
 
-                                    // Crear conexión
-                                    $conn = new mysqli($servername, $username, $password, $dbname);
+                                // Crear conexión
+                                $conn = new mysqli($servername, $username, $password, $dbname);
 
-                                    // Verificar la conexión
-                                    if ($conn->connect_error) {
-                                        die("Conexión fallida: " . $conn->connect_error);
+                                // Verificar la conexión
+                                if ($conn->connect_error) {
+                                    die("Conexión fallida: " . $conn->connect_error);
+                                }
+
+                                // Verificar si la sesión de usuario está definida
+                                // Obtener el email de la sesión
+                                $email = $_SESSION['email'];
+
+                                // Preparar la consulta SQL para obtener tickets con estado 'En Curso'
+                                $sql = "SELECT * FROM TICKETS WHERE ESTADO = 'En Curso'";
+
+                                // Preparar la declaración SQL
+                                $stmt = $conn->prepare($sql);
+                                if ($stmt === false) {
+                                    die("Error en la preparación de la consulta: " . $conn->error);
+                                }
+
+                                // Ejecutar la consulta
+                                $stmt->execute();
+
+                                // Obtener el resultado de la consulta
+                                $result = $stmt->get_result();
+
+                                // Crear un array para almacenar los resultados de los tickets
+                                $exercises = [];
+
+                                // Iterar sobre los resultados y almacenarlos en el array
+                                while ($row = $result->fetch_assoc()) {
+                                    $exercises[] = $row;
+                                }
+
+                                // Cerrar la declaración preparada
+                                $stmt->close();
+
+                                // Ahora podemos recorrer los resultados de los tickets y mostrar la información
+                                if (count($exercises) > 0) {
+                                    foreach ($exercises as $exercise) {
+                                        // Mostrar la información del ticket
+                                        echo '<tr onclick="window.location.href=\'visuCelia?id=' . htmlspecialchars($exercise["ID_TICKET"]) . '\'">';
+                                        echo '  <td>' . htmlspecialchars($exercise["FECHA_HECHO"]) . '</td>';
+                                        echo '  <td>' . htmlspecialchars($exercise["ID_TICKET"]) . '</td>';
+                                        echo '  <td>' . htmlspecialchars($exercise["ASUNTO"]) . '</td>';
+                                        echo '  <td>' . htmlspecialchars($exercise["LUGAR"]) . '</td>';
+
+                                        // Obtener los archivos relacionados con este ticket
+                                        $ticket_id = $exercise["ID_TICKET"];  // Asegúrate de usar el ID del ticket actual
+
+                                        // Preparar la consulta SQL para obtener los archivos de este ticket
+                                        $sql_archivos = "SELECT RUTA_ARCHIVO, NOMBRE_ARCHIVO FROM ARCHIVOS WHERE ID_TICKET = ?";
+                                        $stmt_archivos = $conn->prepare($sql_archivos);
+                                        $stmt_archivos->bind_param("i", $ticket_id);  // Vincula el ID del ticket a la consulta
+                                        $stmt_archivos->execute();
+                                        $result_archivos = $stmt_archivos->get_result();
+
+                                        // Si hay archivos, mostrar un ícono o algo similar
+                                        if ($result_archivos->num_rows > 0) {
+                                            echo '  <td style="display: flex; justify-content: center;">';
+                                            echo '    <img width="20px" src="img/file.png">';  // Icono de archivo
+                                            echo '  </td>';
+                                        } else {
+                                            echo '  <td></td>';  // Si no hay archivos, mostrar una celda vacía
+                                        }
+
+                                        echo '</tr>';
+
+                                        // Cerrar la declaración de archivos
+                                        $stmt_archivos->close();
                                     }
+                                }
 
-                                    // Verificar si la sesión de usuario está definida
-                                        // Obtener el email de la sesión
-                                        $email = $_SESSION['email'];
-
-                                        // Obtener y sanitizar la fecha del parámetro GET
-                                        $date = $_GET['date'];
-                                        $date = htmlspecialchars($date); // Sanitizar la fecha, si es necesario
-
-                                        // Preparar la consulta SQL de manera segura usando declaración preparada
-                                        $sql = "SELECT * FROM TICKETS WHERE ESTADO = 'EN CURSO'";
-
-                                        // Preparar la declaración SQL
-                                        $stmt = $conn->prepare($sql);
-
-                                        if ($stmt === false) {
-                                            die("Error en la preparación de la consulta: " . $conn->error);
-                                        }
-
-                                        // Ejecutar la consulta
-                                        $stmt->execute();
-
-                                        // Obtener el resultado de la consulta
-                                        $result = $stmt->get_result();
-
-                                        // Crear un array para almacenar los resultados
-                                        $exercises = [];
-
-                                        // Iterar sobre los resultados y almacenarlos en el array
-                                        while ($row = $result->fetch_assoc()) {
-                                            $exercises[] = $row;
-                                        }
-
-                                        // Cerrar la declaración preparada
-                                        $stmt->close();
-
-                                        // Cerrar conexión
-                                        $conn->close();
-
-                                        // Verificar si se encontraron ejercicios
-                                        if (count($exercises) > 0) {
-                                            // Mostrar los ejercicios como HTML directamente
-                                            foreach ($exercises as $exercise) {
-                                                echo '    <tr onclick="window.location.href=\'visuCelia?id=' . htmlspecialchars($exercise["ID_TICKET"]) . '\'">';
-                                                echo '      <td> '. htmlspecialchars($exercise["FECHA_HECHO"]) . '</td>';
-                                                echo '      <td> '. htmlspecialchars($exercise["ID_TICKET"]) . '</td>';
-                                                echo '      <td> '. htmlspecialchars($exercise["ASUNTO"]) . '</td>';
-                                                echo '      <td> '. htmlspecialchars($exercise["LUGAR"]) . '</td>';
-                                                echo '      <td> '. htmlspecialchars($exercise["PROCESADO"]) . '</td>';
-                                                echo '    </tr>';
-                                            }
-                                        }
-                                ?>                                  
-                            </tbody>
-                        </table>  
+                                // Cerrar la conexión a la base de datos
+                                $conn->close();
+                            ?>
+                        </tbody>
+                    </table>  
                     </div>                  
                 </div>  
             </div>           
@@ -204,12 +247,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE) {
             <div>
                 <a href="resueltas"><button class="btn btn-primary">Consultar incidencias resueltas</button></a>
             </div>
-        </div>
-        <div class="salir justify-content-end">
-            <a href="php/cerrar-sesion.php">
-                Cerrar sesión
-                <img src="img/salir.svg" alt="">
-            </a>
         </div>
     </div>
 </body>

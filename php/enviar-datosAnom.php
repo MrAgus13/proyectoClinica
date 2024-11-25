@@ -49,6 +49,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (move_uploaded_file($_FILES['fichero']['tmp_name'], $rutaArchivo)) {
             // Generar un ID de ticket aleatorio
             $idTicket = rand(10000000, 99999999);
+            $directorioDestino = "uploads/";  // Debes tener esta carpeta creada
+            $rutaArchivo = $directorioDestino . $nombreArchivo;
 
             // Preparar la consulta SQL para insertar el ticket
             $stmt = $conn->prepare("INSERT INTO TICKETS (ID_TICKET, FECHA_HECHO, LUGAR, ASUNTO, DESCRIPCION, ID_USUARIO) VALUES (?, ?, ?, ?,?, ?)");

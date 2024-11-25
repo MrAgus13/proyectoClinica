@@ -1,10 +1,25 @@
+*{
+    font-family: 'Naste Semibold';
+}
+
+body{
+    overflow: visible !important;
+    background: linear-gradient(#10408b, #7a8494);
+    height: 100vh;
+}
+
 /* Estilos de la caja principal */
 .box-tick {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 30);
     box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
     padding: 2em;
     border-radius: 4px;
-    max-width: 800px; /* Limitamos el ancho máximo */
+    position: relative;
+}
+
+.salir{
+    display: flex;
+    justify-content: space-between
 }
 
 /* Estilos del título */
@@ -13,7 +28,8 @@
 }
 
 #ticket-info{
-    margin: 4em;
+    margin-left: 4em;
+    margin-right: 4em;
 }
 
 /* Input general */
@@ -21,13 +37,35 @@ input, textarea {
     width: 100%;
     background-color: #e0e0e0;
     color: #666;
-    border: 1px solid grey;
+    border: 1px solid #7c7c7cb6;
     cursor: not-allowed;
+}
+
+.form-control{
+    color:#7c7c7cb6;
+}
+
+.form-control:focus, .description-box:focus {
+    border: 1px solid #7c7c7cb6; 
+    box-shadow: 0 0 0px #e0e0e0; 
+    outline: none; 
+    background-color: #e0e0e0;
+    color: #666;
+}
+
+#comment-descripcion{
+    background-color: white;
+    color: black;
+}
+
+#comment-descripcion:focus{
+    box-shadow: 0 0 10px #134189;
+    outline: 1px solid #134189;   
 }
 
 /* Caja desplegable (boxDes) */
 .boxDes {
-    border: 1px solid grey;
+    border: 1px solid #7c7c7cb6;
     border-radius: 4px;
     margin: 0 auto;
     padding: 1em;
@@ -35,7 +73,7 @@ input, textarea {
 
 /* Caja comprimida (boxUnDes) */
 .boxUnDes {
-    border: 1px solid grey;
+    border: 1px solid #7c7c7cb6;
     height: 3em;
     display: flex;
     justify-content: space-between;
@@ -54,7 +92,7 @@ input, textarea {
 input[readonly], textarea[readonly] {
     background-color: #e0e0e0;
     color: #666;
-    border: 1px solid grey;
+    border: 1px solid #7c7c7cb6;
     cursor: not-allowed;
 }
 
@@ -64,6 +102,11 @@ input[readonly], textarea[readonly] {
     max-width: 300px;
     height: 3em;
     font-size: 1em;
+}
+
+.btn-success{
+    background-color: #134189;
+    border: none;
 }
 
 /* Oculta detalles por defecto */
@@ -78,4 +121,22 @@ input[readonly], textarea[readonly] {
 
 .d-block{
     display: block;
+}
+
+.file-box{
+    width: 100%;
+    background-color: #e0e0e0   ;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+.file-box div a{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+    margin: 1em;
+}
+
+.file-img{
+    width: 50px;
 }

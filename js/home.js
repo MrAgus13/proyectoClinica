@@ -30,10 +30,8 @@ function validarNumero(event) {
     if (event.key === 'Enter') {
         var numero = document.getElementById("codigoIncidencia").value;
 
-        // Validar si el número tiene exactamente 8 dígitos
         if (/^\d{8}$/.test(numero)) {
-            alert("Número válido. ¡Tique confirmado!");
-           
+            window.location.href = 'ticket?id=' + encodeURIComponent(numero);
         } else {
             alert("Por favor, ingresa un número de 8 dígitos.");
         }

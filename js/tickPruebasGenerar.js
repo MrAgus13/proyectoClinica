@@ -14,10 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
         commentDetails.classList.add("boxDes", "p-3", "d-none");
         commentDetails.innerHTML = `
             <div class="infoPersonal mb-3">
-                <p>Asunto:</p>
-                <input type="text" class="form-control" value="Asunto del comentario" id="comment-asunto">
-            </div>
-            <div class="infoPersonal mb-3">
                 <p>Descripción de la incidencia:</p>
                 <textarea class="form-control" id="comment-descripcion"></textarea>
             </div>
@@ -28,12 +24,14 @@ document.addEventListener("DOMContentLoaded", () => {
             <button class="btn btn-success" onclick="saveComment()">Guardar</button>
         `;
 
-        commentBox.addEventListener("click", () => toggleBox(commentDetails));
+        //commentBox.addEventListener("click", () => toggleBox(commentDetails));
 
         // Añadir la caja y los detalles en el contenedor principal
         const ticketInfo = document.getElementById("ticket-info");
         ticketInfo.appendChild(commentBox);
         ticketInfo.appendChild(commentDetails);
+
+        attachToggleEvent(commentBox, commentDetails);
     }
 
     // Función para manejar la apertura y cierre de las cajas
@@ -47,8 +45,19 @@ document.addEventListener("DOMContentLoaded", () => {
         detailsElement.classList.toggle("d-none");
     }
 
-    // Función para guardar los comentarios en el localStorage
-   
+    // Función para asignar el evento de clic a los nuevos elementos
+    function attachToggleEvent(boxElement, detailsElement) {
+        boxElement.addEventListener("click", () => toggleBox(detailsElement));
+    }
+
+    // Inicializar los eventos de despliegue para los elementos ya existentes al cargar la página
+    function initializeToggleEvents() {
+        const toggleElements = document.querySelectorAll(".boxUnDes");
+        toggleElements.forEach(toggleElement => {
+            const detailsElement = toggleElement.nextElementSibling; // Caja de detalles asociada
+            attachToggleEvent(toggleElement, detailsElement);
+        });
+    }
 
     // Asignación de eventos a los botones para agregar cajas de comentario y fichero
     const addCommentBtn = document.getElementById("add-comment-btn");
@@ -57,4 +66,5 @@ document.addEventListener("DOMContentLoaded", () => {
         addCommentBtn.addEventListener("click", addCommentBox);
     }
 
+    initializeToggleEvents();
 });

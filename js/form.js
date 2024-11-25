@@ -92,7 +92,7 @@ function enviarAnom(event){
           text: "Por favor, complete todos los campos antes de enviar.",
           icon: "error",
           confirmButtonColor: "#134189",
-          confirmButtonText: "OK"
+          confirmButtonText: "Volver"
       });
       return; // Evita que se proceda con el envío del formulario
   }
@@ -127,10 +127,10 @@ function enviarConf(event){
   // Obtener los valores de los campos del formulario
   const nombre = document.getElementById('nombre').value;
   const email = document.getElementById('email').value;
-  const fecha = document.getElementById('fecha').value;
-  const localizacion = document.getElementById('localizacion').value;
-  const asunto = document.getElementById('asunto').value;
-  const descripcion = document.getElementById('descripcion').value;
+  const fecha = document.getElementById('fechaConf').value;
+  const localizacion = document.getElementById('localizacionConf').value;
+  const asunto = document.getElementById('asuntoConf').value;
+  const descripcion = document.getElementById('descripcionConf').value;
 
   // Verificar que todos los campos obligatorios están completos
   if (!nombre || !email || !fecha || !localizacion || !asunto || !descripcion) {
@@ -139,7 +139,7 @@ function enviarConf(event){
           text: "Por favor, complete todos los campos antes de enviar.",
           icon: "error",
           confirmButtonColor: "#134189",
-          confirmButtonText: "OK"
+          confirmButtonText: "Volver"
       });
       return; // Evita que se proceda con el envío del formulario
   }
@@ -166,5 +166,51 @@ function enviarConf(event){
   });
 }
 
+function mostrarArchivo() {
+  var input = document.getElementById('fichero');
+  var preview = document.getElementById('file-preview');
+  var file = input.files[0];
+
+  // Limpiar el contenido previo
+  preview.innerHTML = '';
+
+  if (file) {
+      // Mostrar el nombre del archivo
+      var fileName = document.createElement('span');
+      fileName.textContent = file.name;
+      preview.appendChild(fileName);
+
+      // Si el archivo es una imagen, mostrar una miniatura
+      if (file.type.startsWith('image/')) {
+          var reader = new FileReader();
+          
+          reader.onload = function(e) {
+              var img = document.createElement('img');
+              img.src = e.target.result;
+              img.style.width = '50px';  // Tamaño de la miniatura
+              img.style.marginLeft = '10px';
+              preview.appendChild(img);
+          };
+
+          reader.readAsDataURL(file);  // Lee el archivo como URL de datos para mostrar la miniatura
+      }
+
+      // Crear un botón para eliminar el archivo
+      var removeIcon = document.createElement('img');
+            removeIcon.src = 'img/delete.png';  // Ruta de tu icono de eliminar
+            removeIcon.alt = 'Eliminar archivo';
+            removeIcon.style.width = '20px';  // Ajusta el tamaño del icono
+            removeIcon.style.marginLeft = '10px';
+            removeIcon.style.cursor = 'pointer';  // Cambia el cursor al pasar por encima
+
+            // Al hacer clic en el icono, limpiar el campo de archivo y la vista previa
+            removeIcon.onclick = function() {
+                input.value = '';  // Limpiar el campo de entrada
+                preview.innerHTML = '';  // Limpiar la vista previa
+            };
+
+            preview.appendChild(removeIcon);
+  }
+}
 
 

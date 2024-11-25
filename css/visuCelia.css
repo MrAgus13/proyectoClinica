@@ -5,8 +5,8 @@ body{
     background: linear-gradient(#10408b, #7a8494);
     height: 100vh;
 }
-.box {
-    background-color: rgba(255, 255, 255, 0.8);
+.box{
+    background-color: rgba(255, 255, 255, 30);
     box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
     padding: 2em;
     border-radius: 12px;
@@ -14,27 +14,33 @@ body{
     margin: 2em auto;
 }
 
-
 .header-info {
     display: flex;
     justify-content: space-between;
     font-size: 0.9em;
     margin-bottom: 1em;
 }
+
 .header-info div {
     flex: 1;
     text-align: center;
     padding: 0.5em;
-    border-bottom: 1px solid #e0e0e0;
-    border-top: 1px solid #e0e0e0;
-
+    border-bottom: 2px solid #e0e0e0;
+    border-top: 2px solid #e0e0e0;
 }
+
 .form-section {
     margin-top: 1em;
 }
+
 .form-section label {
     font-weight: bold;
 }
+
+.form-control{
+    color:#7c7c7cb6;
+}
+
 .description-box {
     height: 100px;
     resize: none;
@@ -42,11 +48,13 @@ body{
     border: 1px solid #e0e0e0;
     border-radius: 4px;
     padding: 0.5em;
+    color:#7c7c7cb6;
 }
+
 .image-placeholder {
     height: 150px;
     background-color: #f0f0f0;
-    color: red;
+    color: #7c7c7cb6;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -54,7 +62,11 @@ body{
     border: 1px solid #e0e0e0;
     border-radius: 4px;
     margin-top: 1em;
+
+    margin-left: 0px;
+    margin-right: 0px;
 }
+
 .response-box {
     margin-top: 1em;
     height: 60px;
@@ -65,20 +77,27 @@ body{
     padding: 0.5em;
     margin-bottom: 2em;
 }
+
 .btns {
     display: flex;
     justify-content: space-between;
-
 }
 
 p {
     margin-top: 10px;
 }
+
 .btns button {
     width: 21%;
     padding: .7em;
     cursor: pointer;
 }
+
+.btn-secondary{
+    background-color: #7c7c7cb6;
+    border: none;
+}
+
 .form-select {
     margin-left: 2em;
     margin-right: 25em;
@@ -89,11 +108,28 @@ img{
 }
 
 .expanded {
-    height: 200px; 
+    height: 150px; 
     transition: height 0.3s ease;
 }
 
 .salir{
     display: flex;
     justify-content: space-between
+}
+
+input, textarea, select {
+    border: 1px solid #e0e0e0; 
+    box-shadow: none; 
+    outline: none; 
+}
+
+input:focus, textarea:focus{
+    box-shadow: 0 0 10px #134189;
+    outline: 1px solid #134189;    
+}
+
+.form-control:focus, .description-box:focus {
+    border: 1px solid #e0e0e0; 
+    box-shadow: 0 0 0px #e0e0e0; 
+    outline: none; 
 }

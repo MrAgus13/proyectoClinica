@@ -43,72 +43,72 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         // Mover el archivo desde la ubicación temporal al destino
         if (move_uploaded_file($_FILES['fichero']['tmp_name'], $nombreArchivo)) {
-            echo "Archivo cargado correctamente.";
+            $stmt = $conn->prepare("SELECT ID_USUARIO FROM USUARIOS WHERE CORREO = ?");
+            $stmt->bind_param("s", $correo);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if ($result->num_rows > 0) {
+                // Si el correo ya existe, obtener el ID_USUARIO
+                $usuario = $result->fetch_assoc()['ID_USUARIO'];
+
+                // Generar un ID de ticket aleatorio
+                $idTicket = rand(10000000, 99999999);
+
+                // Preparar la consulta SQL para insertar el ticket
+                $stmt = $conn->prepare("INSERT INTO TICKETS (ID_TICKET, FECHA_HECHO, LUGAR, ASUNTO, DESCRIPCION, ID_USUARIO) VALUES (?, ?, ?, ?, ?, ?)");
+                // Vincular los parámetros
+                $stmt->bind_param("issssi", $idTicket, $fecha, $localizacion, $asunto, $descripcion, $usuario);
+
+                // Ejecutar la consulta
+                if ($stmt->execute()) {
+                    // Redirigir al ticket con el ID recién creado
+                    header('Location: ../codTicket?id=' . $idTicket);
+                } else {
+                    echo "Error al insertar ticket: " . $stmt->error;
+                }
+
+            } else {
+                // Si el correo no existe, insertar un nuevo usuario
+                $stmt = $conn->prepare("INSERT INTO USUARIOS (NOMBRE, CORREO) VALUES (?, ?)");
+                $stmt->bind_param("ss", $nombre, $correo);
+
+                if ($stmt->execute()) {
+                    // Obtener el ID del nuevo usuario
+                    $usuario = $stmt->insert_id;
+
+                    // Generar un ID de ticket aleatorio
+                    $idTicket = rand(10000000, 99999999);
+
+                    // Preparar la consulta SQL para insertar el ticket
+                    $stmt = $conn->prepare("INSERT INTO TICKETS (ID_TICKET, FECHA_HECHO, LUGAR, ASUNTO, DESCRIPCION, ID_USUARIO) VALUES (?, ?, ?, ?, ?, ?)");
+                    // Vincular los parámetros
+                    $stmt->bind_param("issssi", $idTicket, $fecha, $localizacion, $asunto, $descripcion, $usuario);
+
+                    // Ejecutar la consulta
+                    if ($stmt->execute()) {
+                        // Redirigir al ticket con el ID recién creado
+                        header('Location: ../codTicket?id=' . $idTicket);
+                    } else {
+                        echo "Error al insertar ticket: " . $stmt->error;
+                    }
+
+                } else {
+                    echo "Error al crear el usuario: " . $stmt->error;
+                }
+            }
+
+            // Cerrar la declaración preparada
+            $stmt->close();
+
+            }
         } else {
             echo "Error al cargar el archivo.";
         }
     }
 
     // Verificar si el correo ya existe
-    $stmt = $conn->prepare("SELECT ID_USUARIO FROM USUARIOS WHERE CORREO = ?");
-    $stmt->bind_param("s", $correo);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        // Si el correo ya existe, obtener el ID_USUARIO
-        $usuario = $result->fetch_assoc()['ID_USUARIO'];
-
-        // Generar un ID de ticket aleatorio
-        $idTicket = rand(10000000, 99999999);
-
-        // Preparar la consulta SQL para insertar el ticket
-        $stmt = $conn->prepare("INSERT INTO TICKETS (ID_TICKET, FECHA_HECHO, LUGAR, ASUNTO, DESCRIPCION, ID_USUARIO) VALUES (?, ?, ?, ?, ?, ?)");
-        // Vincular los parámetros
-        $stmt->bind_param("issssi", $idTicket, $fecha, $localizacion, $asunto, $descripcion, $usuario);
-
-        // Ejecutar la consulta
-        if ($stmt->execute()) {
-            // Redirigir al ticket con el ID recién creado
-            header('Location: ../codTicket?id=' . $idTicket);
-        } else {
-            echo "Error al insertar ticket: " . $stmt->error;
-        }
-
-    } else {
-        // Si el correo no existe, insertar un nuevo usuario
-        $stmt = $conn->prepare("INSERT INTO USUARIOS (NOMBRE, CORREO) VALUES (?, ?)");
-        $stmt->bind_param("ss", $nombre, $correo);
-
-        if ($stmt->execute()) {
-            // Obtener el ID del nuevo usuario
-            $usuario = $stmt->insert_id;
-
-            // Generar un ID de ticket aleatorio
-            $idTicket = rand(10000000, 99999999);
-
-            // Preparar la consulta SQL para insertar el ticket
-            $stmt = $conn->prepare("INSERT INTO TICKETS (ID_TICKET, FECHA_HECHO, LUGAR, ASUNTO, DESCRIPCION, ID_USUARIO) VALUES (?, ?, ?, ?, ?, ?)");
-            // Vincular los parámetros
-            $stmt->bind_param("issssi", $idTicket, $fecha, $localizacion, $asunto, $descripcion, $usuario);
-
-            // Ejecutar la consulta
-            if ($stmt->execute()) {
-                // Redirigir al ticket con el ID recién creado
-                header('Location: ../codTicket?id=' . $idTicket);
-            } else {
-                echo "Error al insertar ticket: " . $stmt->error;
-            }
-
-        } else {
-            echo "Error al crear el usuario: " . $stmt->error;
-        }
-    }
-
-    // Cerrar la declaración preparada
-    $stmt->close();
-
-    }
+    
 
 // Cerrar la conexión a la base de datos
 $conn->close();
