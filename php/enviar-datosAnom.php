@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Configuración de la base de datos
 $servername = "localhost";
 $username = "alumne";
@@ -36,50 +41,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Manejo del archivo subido (si hay archivo)
     if (isset($_FILES['fichero']) && $_FILES['fichero']['error'] == 0) {
         // Carpeta donde se guardarán los archivos (asegúrate de crearla y darle permisos de escritura)
-        $directorioDestino = "uploads/";  // Debes tener esta carpeta creada
+        $directorioDestino = "../uploads/";  // Debes tener esta carpeta creada
         $nombreArchivo = basename($_FILES['fichero']['name']);
         $rutaArchivo = $directorioDestino . $nombreArchivo;
         
         // Mover el archivo desde la ubicación temporal al destino
         if (move_uploaded_file($_FILES['fichero']['tmp_name'], $rutaArchivo)) {
-            echo "Archivo cargado correctamente.";
+            // Generar un ID de ticket aleatorio
+            $idTicket = rand(10000000, 99999999);
+
+            // Preparar la consulta SQL para insertar el ticket
+            $stmt = $conn->prepare("INSERT INTO TICKETS (ID_TICKET, FECHA_HECHO, LUGAR, ASUNTO, DESCRIPCION, ID_USUARIO) VALUES (?, ?, ?, ?,?, ?)");
+
+            $usuario = 1;  // Ejemplo: asumiendo que el ID de usuario es 1
+            // Vincular los parámetros
+            $stmt->bind_param("issssi", $idTicket, $fecha, $localizacion, $asunto, $descripcion, $usuario);
+
+            // Ejecutar la consulta
+            if ($stmt->execute()) {
+                // Si el ticket se inserta correctamente, insertar el archivo en la tabla ARCHIVOS
+                if ($nombreArchivo) {
+                    $stmt = $conn->prepare("INSERT INTO ARCHIVOS (NOMBRE_ARCHIVO, RUTA_ARCHIVO, ID_TICKET) VALUES (?, ?, ?)");
+                    $stmt->bind_param("ssi", $nombreArchivo, $rutaArchivo, $idTicket);
+
+                    if ($stmt->execute()) {
+                        echo "Archivo asociado al ticket correctamente.";
+                    } else {
+                        echo "Error al asociar el archivo al ticket: " . $stmt->error;
+                    }
+                    $stmt->close();
+                }
+                // Redirigir a la página del ticket con el ID
+                header('Location: ../codTicket?id=' . $idTicket);
+            } else {
+                echo "Error al insertar ticket: " . $stmt->error;
+            }
+
+            // Cerrar la declaración preparada
+            $stmt->close();
         } else {
             echo "Error al cargar el archivo.";
         }
     }
-
-    // Generar un ID de ticket aleatorio
-    $idTicket = rand(10000000, 99999999);
-
-    // Preparar la consulta SQL para insertar el ticket
-    $stmt = $conn->prepare("INSERT INTO TICKETS (ID_TICKET, FECHA_HECHO, LUGAR, ASUNTO, DESCRIPCION, ID_USUARIO) VALUES (?, ?, ?, ?,?, ?)");
-
-    $usuario = 1;  // Ejemplo: asumiendo que el ID de usuario es 1
-    // Vincular los parámetros
-    $stmt->bind_param("issssi", $idTicket, $fecha, $localizacion, $asunto, $descripcion, $usuario);
-
-    // Ejecutar la consulta
-    if ($stmt->execute()) {
-        // Si el ticket se inserta correctamente, insertar el archivo en la tabla ARCHIVOS
-        if ($nombreArchivo) {
-            $stmt = $conn->prepare("INSERT INTO ARCHIVOS (NOMBRE_ARCHIVO, RUTA, ID_TICKET) VALUES (?, ?, ?)");
-            $stmt->bind_param("ssi", $nombreArchivo, $rutaArchivo, $idTicket);
-
-            if ($stmt->execute()) {
-                echo "Archivo asociado al ticket correctamente.";
-            } else {
-                echo "Error al asociar el archivo al ticket: " . $stmt->error;
-            }
-            $stmt->close();
-        }
-        // Redirigir a la página del ticket con el ID
-        header('Location: ../codTicket?id=' . $idTicket);
-    } else {
-        echo "Error al insertar ticket: " . $stmt->error;
-    }
-
-    // Cerrar la declaración preparada
-    $stmt->close();
 }
 
 // Cerrar la conexión a la base de datos

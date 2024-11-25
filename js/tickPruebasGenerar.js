@@ -21,6 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 <p>Descripción de la incidencia:</p>
                 <textarea class="form-control" id="comment-descripcion"></textarea>
             </div>
+             <div class="infoPersonal mb-3">
+                <p>Nombre del fichero:</p>
+                <input type="file" class="form-control" value="Fichero de ejemplo" id="file-nombre">
+            </div>
             <button class="btn btn-success" onclick="saveComment()">Guardar</button>
         `;
 
@@ -30,38 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const ticketInfo = document.getElementById("ticket-info");
         ticketInfo.appendChild(commentBox);
         ticketInfo.appendChild(commentDetails);
-    }
-
-    // Función para añadir una caja de fichero
-    function addFileBox() {
-        const fileBox = document.createElement("div");
-        fileBox.classList.add("boxUnDes", "d-flex", "justify-content-between", "align-items-center", "mt-3");
-
-        fileBox.innerHTML = `
-            <p class="p-3 m-0">Un fichero ha sido agregado</p>
-            <img class="dropdownIcon" src="img/dropdownIcon.svg" alt="">
-        `;
-        
-        const fileDetails = document.createElement("div");
-        fileDetails.classList.add("boxDes", "p-3", "d-none");
-        fileDetails.innerHTML = `
-            <div class="infoPersonal mb-3">
-                <p>Nombre del fichero:</p>
-                <input type="file" class="form-control" value="Fichero de ejemplo" id="file-nombre">
-            </div>
-            <div class="infoPersonal mb-3">
-                <p>Descripción del fichero:</p>
-                <textarea class="form-control" id="file-descripcion"></textarea>
-            </div>
-            <button class="btn btn-success" onclick="saveFile()">Guardar</button>
-        `;
-
-        fileBox.addEventListener("click", () => toggleBox(fileDetails));
-
-        // Añadir la caja y los detalles en el contenedor principal
-        const ticketInfo = document.getElementById("ticket-info");
-        ticketInfo.appendChild(fileBox);
-        ticketInfo.appendChild(fileDetails);
     }
 
     // Función para manejar la apertura y cierre de las cajas
@@ -80,13 +52,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Asignación de eventos a los botones para agregar cajas de comentario y fichero
     const addCommentBtn = document.getElementById("add-comment-btn");
-    const addFileBtn = document.getElementById("add-file-btn");
 
     if (addCommentBtn) {
         addCommentBtn.addEventListener("click", addCommentBox);
     }
 
-    if (addFileBtn) {
-        addFileBtn.addEventListener("click", addFileBox);
-    }
 });

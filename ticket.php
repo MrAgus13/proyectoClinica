@@ -124,7 +124,6 @@ if (isset($_GET['id'])) {
         <!-- Botón para añadir comentarios y archivos -->
         <div class="text-center mt-4">
             <button id="add-comment-btn" class="btn btn-primary btnadd">Añadir comentario</button>
-            <button id="add-file-btn" class="btn btn-secondary btnadd">Añadir fichero</button>
         </div>
     </div> 
 </body>
