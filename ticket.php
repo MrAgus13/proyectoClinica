@@ -139,5 +139,41 @@ error_reporting(E_ALL);
             <button id="add-comment-btn" class="btn btn-primary btnadd">Añadir comentario</button>
         </div>
     </div> 
+<script>
+    function saveComment(){
+        var comentario = document.getElementById('comentario').value; // Comentario del formulario
+        var archivo = document.getElementById('file').files[0]; // Archivo adjunto (si existe)
+
+        // Verificar que el comentario no esté vacío
+        if (comentario.trim() === "") {
+            Swal.fire('¡Error!', 'Debes escribir un comentario.', 'error');
+            return;
+        }
+
+        var formData = new FormData();
+        formData.append('comentario', comentario); // Agregar el comentario al FormData
+        formData.append('ticket_id', <?php echo json_encode($ticket_id); ?>); // Agregar el ID del ticket
+        if (archivo) {
+            formData.append('fichero', archivo); // Agregar el archivo al FormData
+        }
+
+        // Realizar la solicitud AJAX al script PHP
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'php/enviar-comentariosUsuario.php', true);
+
+        // Cuando la solicitud sea completada
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                Swal.fire('¡Éxito!', 'Comentario enviado con éxito.', 'success');
+                // Opcional: Redirigir o actualizar la página
+                location.reload(); // Recargar la página para ver los cambios
+            } else {
+                Swal.fire('¡Error!', 'Hubo un problema al enviar el comentario.', 'error');
+            }
+        };
+
+        xhr.send(formData);
+    }
+</script>
 </body>
 </html>

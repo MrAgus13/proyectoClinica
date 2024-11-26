@@ -45,6 +45,8 @@ document.addEventListener("DOMContentLoaded", () => {
         detailsElement.classList.toggle("d-none");
     }
 
+    
+
     // Función para asignar el evento de clic a los nuevos elementos
     function attachToggleEvent(boxElement, detailsElement) {
         boxElement.addEventListener("click", () => toggleBox(detailsElement));

@@ -1,7 +1,5 @@
 <?php
 session_start();
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
 
 // Verificar si 'id' está presente en la URL
 if (isset($_GET['id'])) {
@@ -27,7 +25,6 @@ if ($conn->connect_error) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Recoger los datos del formulario
     $comentario = $_POST['comentario']; // Recoger el comentario
-    $comentario = htmlspecialchars(trim($comentario), ENT_QUOTES, 'UTF-8'); // Sanitizar el comentario
 
     // Validación de los datos recibidos
     if (empty($comentario)) {
@@ -53,9 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Mover el archivo desde la ubicación temporal al destino
         if (move_uploaded_file($_FILES['fichero']['tmp_name'], $rutaArchivo)) {
             // Insertar el comentario en la tabla ADMIN_TICKETS
-            $stmt = $conn->prepare("INSERT INTO ADMIN_TICKETS (ID_ADMIN, COMENTARIOS, ID_TICKET) VALUES (?, ?, ?)");
+            $stmt = $conn->prepare("INSERT INTO USER_TICKETS (ID_ADMIN, COMENTARIOS) VALUES (?, ?)");
             $usuario = 1;  // Ejemplo: asumiendo que el ID de usuario es 1 (esto puede cambiar según tu lógica)
-            $stmt->bind_param("isi", $usuario, $comentario, $ticket_id);  // Asocia el comentario con el ticket
+            $stmt->bind_param("is", $usuario, $comentario);
 
             // Ejecutar la consulta
             if ($stmt->execute()) {
@@ -64,8 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 // Insertar el archivo en la tabla ARCHIVOS
                 if ($nombreArchivo) {
-                    $stmt = $conn->prepare("INSERT INTO ARCHIVOS (NOMBRE_ARCHIVO, RUTA_ARCHIVO, ID_TICKET) VALUES (?, ?, ?)");
-                    $stmt->bind_param("ssi", $nombreArchivo, $rutaArchivo, $ticket_id); // Asociar archivo al ticket
+                    $stmt = $conn->prepare("INSERT INTO ARCHIVOS (NOMBRE_ARCHIVO, RUTA_ARCHIVO, ID_ADTICK) VALUES (?, ?, ?)");
+                    $stmt->bind_param("ssi", $nombreArchivo, $rutaArchivo, $idAdTicket);
 
                     if ($stmt->execute()) {
                         echo "Archivo asociado al ticket correctamente.";
@@ -79,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header('Location: ../visuCelia?id=' . $ticket_id);
                 exit();
             } else {
-                echo "Error al insertar comentario: " . $stmt->error;
+                echo "Error al insertar ticket: " . $stmt->error;
             }
 
             // Cerrar la declaración preparada

@@ -146,11 +146,9 @@ if (isset($_GET['id'])) {
                     echo '        Espacio para visualizar imágenes, archivos...';
                 echo '    </div>';
             }
-
             echo '    <div class="form-section mt-3">';
             echo '        <textarea id="comentario" class="response-box" placeholder="Escribe aquí tu respuesta"></textarea>';
             echo '    </div>';
-
             echo '    <div class="btns">';
             echo '        <input type="file" id="file" class="form-control" style="display: none;">';
             echo '        <button class="btn btn-secondary" onclick="document.getElementById(\'file\').click()">Adjuntar archivo</button>';
@@ -169,38 +167,52 @@ if (isset($_GET['id'])) {
 </body>
 <script>
     document.querySelector('.btn_close').addEventListener('click', function () {
-        var comentario = document.getElementById('comentario').value; // Comentario del formulario
-        var archivo = document.getElementById('file').files[0]; // Archivo adjunto (si existe)
+    var comentario = document.getElementById('comentario').value; // Comentario del formulario
+    var archivo = document.getElementById('file').files[0]; // Archivo adjunto (si existe)
 
-        // Verificar que el comentario no esté vacío
-        if (comentario.trim() === "") {
-            Swal.fire('¡Error!', 'Debes escribir un comentario.', 'error');
+    // Verificar que el comentario no esté vacío
+    if (comentario.trim() === "") {
+        Swal.fire('¡Error!', 'Debes escribir un comentario.', 'error');
+        return;
+    }
+
+    var formData = new FormData();
+    formData.append('comentario', comentario); // Agregar el comentario al FormData
+    formData.append('ticket_id', <?php if (isset($_GET['id'])) {$ticket_id = $_GET['id'];} echo json_encode($ticket_id); ?>); 
+    
+    // Validar archivo si existe
+    if (archivo) {
+        var fileType = archivo.type;
+        var allowedTypes = ['image/jpeg', 'image/png', 'application/pdf']; // Tipos permitidos
+        if (!allowedTypes.includes(fileType)) {
+            Swal.fire('¡Error!', 'Solo se permiten archivos de tipo imagen o PDF.', 'error');
             return;
         }
+        formData.append('fichero', archivo); // Agregar el archivo al FormData
+    }
 
-        var formData = new FormData();
-        formData.append('comentario', comentario); // Agregar el comentario al FormData
-        formData.append('ticket_id', <?php echo json_encode($ticket_id); ?>); // Agregar el ID del ticket
-        if (archivo) {
-            formData.append('fichero', archivo); // Agregar el archivo al FormData
+    // Realizar la solicitud AJAX al script PHP
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'php/enviar-comentarios.php', true);
+
+    // Cuando la solicitud sea completada
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            Swal.fire('¡Éxito!', 'Comentario enviado con éxito.', 'success');
+            location.reload(); // Recargar la página para ver los cambios
+        } else {
+            Swal.fire('¡Error!', 'Hubo un problema al enviar el comentario. Código de error: ' + xhr.status, 'error');
         }
+    };
 
-        // Realizar la solicitud AJAX al script PHP
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'php/enviar-comentarios.php', true);
+    // Manejar errores de red
+    xhr.onerror = function () {
+        Swal.fire('¡Error!', 'Hubo un problema con la conexión de red.', 'error');
+    };
 
-        // Cuando la solicitud sea completada
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                Swal.fire('¡Éxito!', 'Comentario enviado con éxito.', 'success');
-                // Opcional: Redirigir o actualizar la página
-                location.reload(); // Recargar la página para ver los cambios
-            } else {
-                Swal.fire('¡Error!', 'Hubo un problema al enviar el comentario.', 'error');
-            }
-        };
+    // Enviar los datos
+    xhr.send(formData);
+});
 
-        xhr.send(formData);
-    });
 </script>
 </html>
