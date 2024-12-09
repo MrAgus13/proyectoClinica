@@ -44,7 +44,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE) {
                             
                             <tbody>
                             <?php
-                                session_start();
 
                                 // Configurar la conexión a la base de datos
                                 $servername = "localhost";
@@ -62,7 +61,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE) {
 
                                 // Verificar si la sesión de usuario está definida
                                 // Obtener el email de la sesión
-                                $email = $_SESSION['email'];
 
                                 // Preparar la consulta SQL para obtener tickets con estado 'NUEVA'
                                 $sql = "SELECT * FROM TICKETS WHERE ESTADO = 'NUEVA'";
@@ -152,7 +150,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE) {
                             </thead>
                             <tbody>
                             <?php
-                                session_start();
 
                                 // Configurar la conexión a la base de datos
                                 $servername = "localhost";
@@ -170,7 +167,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE) {
 
                                 // Verificar si la sesión de usuario está definida
                                 // Obtener el email de la sesión
-                                $email = $_SESSION['email'];
 
                                 // Preparar la consulta SQL para obtener tickets con estado 'En Curso'
                                 $sql = "SELECT * FROM TICKETS WHERE ESTADO = 'En Curso'";

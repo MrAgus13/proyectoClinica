@@ -1,10 +1,5 @@
 <?php
 session_start();
-if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] === TRUE) {
-    // Si no está logueado, redirigir al login
-    header('Location: pPpalCelia');
-    exit();
-}
 
 if (isset($_GET['error'])) {
     switch ($_GET['error']) {

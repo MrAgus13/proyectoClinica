@@ -33,7 +33,6 @@ if (isset($_GET['id'])) {
 <body>
     
     <?php
-        session_start();
 
         // Configurar la conexión a la base de datos
         $servername = "localhost";
