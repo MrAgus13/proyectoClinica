@@ -145,21 +145,48 @@ error_reporting(E_ALL);
                         if ($comment = $comments->fetch_assoc()) {
                         
                             foreach ($comments as $comment) {
+                                // Obtener el ID del comentario para buscar el archivo asociado
+                                $comentarioId = $comment['ID_USTICK']; // Asumiendo que 'id' es el campo de identificación del comentario
+                            
+                                // Obtener el archivo relacionado desde la tabla ARCHIVOS
+                                $queryArchivo = "SELECT * FROM ARCHIVOS WHERE ID_USTICK = ?";
+                                $stmt = $conn->prepare($queryArchivo);
+                                $stmt->bind_param("i", $comentarioId);
+                                $stmt->execute();
+                                $resultArchivo = $stmt->get_result();
+                                $archivo = $resultArchivo->fetch_assoc();
+                            
+                                // Si hay un archivo asociado al comentario, mostrar el enlace de descarga
+                                $archivoLink = '';
+                                if ($archivo) {
+                                    $archivoLink = $archivo['RUTA_ARCHIVO']; // Suponiendo que 'ruta' es el campo que contiene la ruta del archivo
+                                }
+                            
+                                // Mostrar el comentario
                                 echo '<div class="boxUnDes d-flex justify-content-between align-items-center mt-3">
-                                        <p class="p-3 m-0">Has agregado un comentario</p>
+                                        <p class="p-3 m-0">Has agregado un comentario </p>
                                         <img class="dropdownIcon" src="img/dropdownIcon.svg" alt="">
                                       </div>';
-                                
+                            
+                                // Mostrar los detalles del comentario y el archivo, si existe
                                 echo '<div class="boxDes p-3 d-none">
                                         <div class="infoPersonal mb-3">
                                             <p>Descripción de la incidencia:</p>
-                                            <textarea class="form-control" id="comment-descripcion">'.htmlspecialchars($comment['COMENTARIOS']).'</textarea>
-                                        </div>
-                                        <div class="infoPersonal mb-3">
+                                            <textarea class="form-control" id="comment">' . htmlspecialchars($comment['COMENTARIOS']) . '</textarea>
+                                        </div>';
+                            
+                                if ($archivoLink) {
+                                    // Mostrar el enlace de descarga si el archivo existe
+                                    echo '<div class="infoPersonal mb-3">
                                             <p>Fichero: </p>
-                                            
-                                        </div>
-                                      </div>';                                
+                                            <a href="' . $archivoLink . '" download>
+                                                <img src="img/file.png" alt="Descargar archivo">
+                                              
+                                            </a>
+                                          </div>';
+                                }
+                            
+                                echo '</div>';
                             }
                         }
 
@@ -180,21 +207,48 @@ error_reporting(E_ALL);
                         if ($commentAdmin = $commentsAdmin->fetch_assoc()) {
                         
                             foreach ($commentsAdmin as $commentAdmin) {
+                                // Obtener el ID del comentario para buscar el archivo asociado
+                                $comentarioId = $commentAdmin['ID_ADTICK']; // Asumiendo que 'id' es el campo de identificación del comentario
+                            
+                                // Obtener el archivo relacionado desde la tabla ARCHIVOS
+                                $queryArchivo = "SELECT * FROM ARCHIVOS WHERE ID_ADTICK = ?";
+                                $stmt = $conn->prepare($queryArchivo);
+                                $stmt->bind_param("i", $comentarioId);
+                                $stmt->execute();
+                                $resultArchivo = $stmt->get_result();
+                                $archivo = $resultArchivo->fetch_assoc();
+                            
+                                // Si hay un archivo asociado al comentario, mostrar el enlace de descarga
+                                $archivoLink = '';
+                                if ($archivo) {
+                                    $archivoLink = $archivo['RUTA_ARCHIVO']; // Suponiendo que 'ruta' es el campo que contiene la ruta del archivo
+                                }
+                            
+                                // Mostrar el comentario
                                 echo '<div class="boxUnDes d-flex justify-content-between align-items-center mt-3">
                                         <p class="p-3 m-0">Te han agregado un comentario </p>
                                         <img class="dropdownIcon" src="img/dropdownIcon.svg" alt="">
                                       </div>';
-                                
+                            
+                                // Mostrar los detalles del comentario y el archivo, si existe
                                 echo '<div class="boxDes p-3 d-none">
                                         <div class="infoPersonal mb-3">
                                             <p>Descripción de la incidencia:</p>
-                                            <textarea class="form-control" id="comment-descripcion">'.htmlspecialchars($commentAdmin['COMENTARIOS']).'</textarea>
-                                        </div>
-                                        <div class="infoPersonal mb-3">
+                                            <textarea class="form-control" id="comment-admin">' . htmlspecialchars($commentAdmin['COMENTARIOS']) . '</textarea>
+                                        </div>';
+                            
+                                if ($archivoLink) {
+                                    // Mostrar el enlace de descarga si el archivo existe
+                                    echo '<div class="infoPersonal mb-3">
                                             <p>Fichero: </p>
-                                            
-                                        </div>
-                                      </div>';                                
+                                            <a href="' . $archivoLink . '" download>
+                                                <img src="img/file.png" alt="Descargar archivo">
+                                              
+                                            </a>
+                                          </div>';
+                                }
+                            
+                                echo '</div>';
                             }
                         }
                         $conn->close();

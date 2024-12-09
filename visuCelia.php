@@ -144,8 +144,112 @@ if (isset($_GET['id'])) {
                 echo '    <div class="image-placeholder form-section mt-3 row " >';
                     echo '        Espacio para visualizar imágenes, archivos...';
                 echo '    </div>';
-            }
                 
+            }
+
+
+            //Mostrar comentarios admin
+            $sqlCommentsAdmin = "SELECT * FROM ADMIN_TICKETS WHERE ID_TICKET = ?";
+            $stmt = $conn->prepare($sqlCommentsAdmin);
+            $stmt->bind_param("i", $ticket_id);
+            $stmt->execute();
+            $commentsAdmin = $stmt->get_result();
+            $stmt->close();
+            if ($commentsAdmin->num_rows > 0) {
+                echo '<div style="float: left;width: 50%;  padding:1%;">';
+                    echo '    <div class="infoPersonal mb-3">';
+                    echo '        <p>Tus comentarios </p>';
+                    echo '    </div>';
+
+                while ($commentAdmin = $commentsAdmin->fetch_assoc()) {
+                    // Obtener el ID del comentario para buscar el archivo asociado
+                    $comentarioId = $commentAdmin['ID_ADTICK']; // ID del comentario del administrador
+                    
+                    // Obtener el archivo relacionado desde la tabla ARCHIVOS
+                    $queryArchivo = "SELECT * FROM ARCHIVOS WHERE ID_ADTICK = ?";
+                    $stmt = $conn->prepare($queryArchivo);
+                    $stmt->bind_param("i", $comentarioId);
+                    $stmt->execute();
+                    $resultArchivo = $stmt->get_result();
+                    $archivo = $resultArchivo->fetch_assoc();
+        
+                    // Si hay un archivo asociado al comentario, mostrar el enlace de descarga
+                    $archivoLink = '';
+                    if ($archivo) {
+                        $archivoLink = $archivo['RUTA_ARCHIVO']; // Ruta del archivo
+                    }
+    
+        
+                    // Mostrar los detalles del comentario y el archivo, si existe
+                    echo '    <div>';
+
+                    echo '        <textarea class="form-control" id="comment-admin" readonly>' . htmlspecialchars($commentAdmin['COMENTARIOS']) . '</textarea>';
+                    echo '    </div>';
+                    echo '    </br>';
+
+        
+                    if ($archivoLink) {
+                        // Mostrar el enlace de descarga si el archivo existe
+                        echo '<div class="infoPersonal mb-3">';
+                        echo '    <p>Fichero: </p>';
+                        echo '    <a href="' . $archivoLink . '" download>';
+                        echo '        <img src="img/file.png" alt="Descargar archivo">';
+                        echo '    </a>';
+                        echo '</div>';
+                    }
+        
+                }
+                echo '    </div>';
+            }
+
+            // Mostrar comentarios del usuario
+            $sqlComments = "SELECT * FROM USER_TICKETS WHERE ID_TICKET = ?";
+            $stmt = $conn->prepare($sqlComments);
+            $stmt->bind_param("i", $ticket_id);
+            $stmt->execute();
+            $comments = $stmt->get_result();
+            $stmt->close();
+            if ($comments->num_rows > 0) {
+                echo '<div style="float: right;width: 50%; padding:1%;">';
+                echo '    <div class="infoPersonal mb-3">';
+                echo '        <p>Comentario del usuario </p>';
+                echo '    </div>';
+                while ($comment = $comments->fetch_assoc()) {
+                    // Obtener el ID del comentario para buscar el archivo asociado
+                    $comentarioId = $comment['ID_USTICK']; // ID del comentario del usuario
+                    
+                    // Obtener el archivo relacionado desde la tabla ARCHIVOS
+                    $queryArchivo = "SELECT * FROM ARCHIVOS WHERE ID_USTICK = ?";
+                    $stmt = $conn->prepare($queryArchivo);
+                    $stmt->bind_param("i", $comentarioId);
+                    $stmt->execute();
+                    $resultArchivo = $stmt->get_result();
+                    $archivo = $resultArchivo->fetch_assoc();
+
+                    // Si hay un archivo asociado al comentario, mostrar el enlace de descarga
+                    $archivoLink = '';
+                    if ($archivo) {
+                        $archivoLink = $archivo['RUTA_ARCHIVO']; // Ruta del archivo
+                    }
+
+                    // Mostrar el comentario y el archivo si existe
+                    echo '    <div>';
+                    echo '        <textarea class="form-control" id="comment" readonly>' . htmlspecialchars($comment['COMENTARIOS']) . '</textarea>';
+                    echo '    </div>';
+
+                    if ($archivoLink) {
+                        // Mostrar el enlace de descarga si el archivo existe
+                        echo '<div class="infoPersonal mb-3">';
+                        echo '    <p>Fichero: </p>';
+                        echo '    <a href="' . htmlspecialchars($archivoLink) . '" download>';
+                        echo '        <img src="img/file.png" alt="Descargar archivo">';
+                        echo '    </a>';
+                        echo '</div>';
+                    }
+                }
+                echo '</div>';
+            }
+            
 
             //Archivos adjuntos
             echo '    <div class="form-section mt-3">';
