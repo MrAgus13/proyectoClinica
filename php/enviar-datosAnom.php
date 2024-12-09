@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombreArchivo = null;
 
     $idTicket = rand(10000000, 99999999);
-    $directorioDestino = "uploads/";  // Debes tener esta carpeta creada
+    $directorioDestino = "../uploads/";  // Debes tener esta carpeta creada
     $rutaArchivo = $directorioDestino . $nombreArchivo;
 
     // Preparar la consulta SQL para insertar el ticket

@@ -1,5 +1,7 @@
 <?php
 session_start();
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
 // Configuración de la base de datos
 $servername = "localhost";
@@ -36,19 +38,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombreArchivo = null;
 
     // Manejo del archivo subido (si hay archivo)
-    if (isset($_FILES['fichero']) && $_FILES['fichero']['error'] == 0) {
-        // Carpeta donde se guardarán los archivos (asegúrate de crearla y darle permisos de escritura)
-        $directorioDestino = "uploads/";  // Debes tener esta carpeta creada
-        $nombreArchivo = $directorioDestino . basename($_FILES['fichero']['name']);
-        
-        // Mover el archivo desde la ubicación temporal al destino
-        if (move_uploaded_file($_FILES['fichero']['tmp_name'], $nombreArchivo)) {
-            // Continuar con la inserción del ticket
+    if (isset($_FILES['ficheroC']) && $_FILES['ficheroC']['error'] == 0) {
+        $nombreArchivo = basename($_FILES['ficheroC']['name']);
+        $directorioDestino = "../uploads/"; 
+        $rutaArchivo = $directorioDestino . $nombreArchivo;
+    
+        // Verificar que el archivo existe antes de moverlo
+        if (file_exists($_FILES['ficheroC']['tmp_name'])) {
+            if (move_uploaded_file($_FILES['ficheroC']['tmp_name'], $rutaArchivo)) {
+                echo "El archivo se subió con éxito.";
+            } else {
+                echo "Error al mover el archivo.";
+            }
         } else {
-            echo "Error al cargar el archivo.";
-            exit;
+            echo "El archivo no existe en la ubicación temporal.";
         }
+    } else {
+        echo "Error en la carga del archivo.";
     }
+    
 
     // Buscar si el correo ya existe en la base de datos
     $stmt = $conn->prepare("SELECT ID_USUARIO FROM USUARIOS WHERE CORREO = ?");
@@ -73,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Si hay un archivo, insertar el archivo en la base de datos
             if ($nombreArchivo) {
                 $stmt = $conn->prepare("INSERT INTO ARCHIVOS (NOMBRE_ARCHIVO, RUTA_ARCHIVO, ID_TICKET) VALUES (?, ?, ?)");
-                $stmt->bind_param("ssi", $nombreArchivo, $nombreArchivo, $idTicket);
+                $stmt->bind_param("ssi", $nombreArchivo, $rutaArchivo, $idTicket);
                 if (!$stmt->execute()) {
                     echo "Error al asociar el archivo al ticket: " . $stmt->error;
                 }
