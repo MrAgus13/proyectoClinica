@@ -13,17 +13,18 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
     <link rel="stylesheet" href="css/form.css">
-    
+
 </head>
 <body>
-    <!-- Botón salir -->
+    <!-- Contenedor -->
     <div id="box">
+        <!-- Botón salir -->
         <div class="salir">
             <a href="index">
                 <img src="img/logout.svg" alt="">
             </a>
         </div>
-        <!-- Formulario -->
+        <!-- Header del formulario -->
         <div class="animate__animated animate__fadeInDown">
         <h1  id="titles">Notificar un evento</h1>
         <p>Elige como te gustaría informar</p>
@@ -32,9 +33,9 @@
             <li data-num="2" class="tab wave dark">De forma confidencial</li>
             <div class="indicator"></div>
           </ul>
-        <h3 id="anomText">Puede optar por reportar de forma anónima si prefiere no proveer su identidad a nadie en el proceso.</h3>  
-        <h3 id="confText">Su identidad solo será conocida por aquellos que manejen su caso de manera confidencial. </h3> 
-         
+        <h3 id="anomText">Puede optar por reportar de forma anónima si prefiere no proveer su identidad a nadie en el proceso.</h3>
+        <h3 id="confText">Su identidad solo será conocida por aquellos que manejen su caso de manera confidencial. </h3>
+
         <div class="formsBox">
             <!-- Formulario anónimo -->
             <form action="php/enviar-datosAnom.php" method="POST" id="formAnom" enctype="multipart/form-data">
@@ -58,11 +59,10 @@
                 <textarea id="descripcion" name="descripcion"></textarea><br>
                 <label for="fichero" id="btn-fichero"><span>Subir archivo</span></label>
                 <input type="file" id="fichero" name="fichero" onchange="mostrarArchivo()">
-    
+
                 <!-- Contenedor donde se mostrará el nombre del archivo o miniatura -->
                 <div id="file-preview" style="display: inline-flex; margin-left: 10px;"></div>
 
-                <!-- para generar el código -->
                 <input type="hidden" id="codigo" name="codigoIncidencia">
                 <input type="submit" id="enviar" onclick="enviarAnom(event)">
             </form>
@@ -95,14 +95,13 @@
                  <!-- Contenedor donde se mostrará el nombre del archivo o miniatura -->
                  <div id="file-previewC" style="display: inline-flex; margin-left: 10px;"></div>
 
-                <!-- para generar el código -->
                 <input type="hidden" id="codigo" name="codigoIncidencia">
-                <input type="submit" id="enviar" onclick="enviarConf(event)">          
+                <input type="submit" id="enviar" onclick="enviarConf(event)">
             </form>
-            
+
             </div>
         </div>
-        
+
     </div>
     <script src="js/form.js"></script>
 </body>

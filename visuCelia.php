@@ -94,7 +94,7 @@ if (isset($_GET['id'])) {
                 $stmt2->bind_param("i", $ticket_id);
                 $stmt2->execute();
                 $stmt2->close();
-                $row["ESTADO"] = 'En Curso'; // Actualizamos el estado para reflejar el cambio en la UI
+                $row["ESTADO"] = 'En Curso'; 
             }
 
             // Mostrar el ticket como HTML
@@ -119,6 +119,40 @@ if (isset($_GET['id'])) {
             echo '        <div>Fecha: ' . htmlspecialchars($row["FECHA_HECHO"]) . '</div>';
             echo '        <div>Localización: ' . htmlspecialchars($row["LUGAR"]) . '</div>';
             echo '    </div>';
+
+            if ($row["ID_USUARIO"] != 1) {
+
+                $sql = "SELECT * FROM USUARIOS WHERE ID_USUARIO = ?";
+    
+                $IdUser = $row["ID_USUARIO"];
+                // Preparar la declaración SQL
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("i", $IdUser); // Vinculamos el ID del ticket
+        
+                if ($stmt === false) {
+                    die("Error en la preparación de la consulta: " . $conn->error);
+                }
+        
+                // Ejecutar la consulta
+                $stmt->execute();
+        
+                // Obtener el resultado de la consulta
+                $result = $stmt->get_result();    
+        
+                $stmt->close();
+
+                if ($user = $result->fetch_assoc()) {
+                    echo '    <div class="form-section" style="float:left;width:48%">';
+                    echo '        <label for="asunto">Nombre:</label>';
+                    echo '        <input type="text" id="nombre" class="form-control" " value="' . htmlspecialchars($user["NOMBRE"]) . '" readonly>';
+                    echo '    </div>';
+                    echo '    <div class="form-section" style="float:left;width:48%;margin-bottom:1%;">';
+                    echo '        <label for="asunto">Correo:</label>';
+                    echo '        <input type="text" id="nombre" class="form-control" " value="' . htmlspecialchars($user["CORREO"]) . '" readonly>';
+                    echo '    </div>';
+                }
+            }
+
 
             echo '    <div class="form-section">';
             echo '        <label for="asunto">Asunto:</label>';
@@ -163,7 +197,7 @@ if (isset($_GET['id'])) {
 
                 while ($commentAdmin = $commentsAdmin->fetch_assoc()) {
                     // Obtener el ID del comentario para buscar el archivo asociado
-                    $comentarioId = $commentAdmin['ID_ADTICK']; // ID del comentario del administrador
+                    $comentarioId = $commentAdmin['ID_ADTICK']; 
                     
                     // Obtener el archivo relacionado desde la tabla ARCHIVOS
                     $queryArchivo = "SELECT * FROM ARCHIVOS WHERE ID_ADTICK = ?";
@@ -176,7 +210,7 @@ if (isset($_GET['id'])) {
                     // Si hay un archivo asociado al comentario, mostrar el enlace de descarga
                     $archivoLink = '';
                     if ($archivo) {
-                        $archivoLink = $archivo['RUTA_ARCHIVO']; // Ruta del archivo
+                        $archivoLink = $archivo['RUTA_ARCHIVO']; 
                     }
     
         
@@ -212,11 +246,11 @@ if (isset($_GET['id'])) {
             if ($comments->num_rows > 0) {
                 echo '<div style="float: right;width: 50%; padding:1%;">';
                 echo '    <div class="infoPersonal mb-3">';
-                echo '        <p>Comentario del usuario </p>';
+                echo '          <p>Comentario de ' . htmlspecialchars(isset($user["NOMBRE"]) ? $user["NOMBRE"] : 'usuario') . ' </p>';
                 echo '    </div>';
                 while ($comment = $comments->fetch_assoc()) {
                     // Obtener el ID del comentario para buscar el archivo asociado
-                    $comentarioId = $comment['ID_USTICK']; // ID del comentario del usuario
+                    $comentarioId = $comment['ID_USTICK']; 
                     
                     // Obtener el archivo relacionado desde la tabla ARCHIVOS
                     $queryArchivo = "SELECT * FROM ARCHIVOS WHERE ID_USTICK = ?";
@@ -229,7 +263,7 @@ if (isset($_GET['id'])) {
                     // Si hay un archivo asociado al comentario, mostrar el enlace de descarga
                     $archivoLink = '';
                     if ($archivo) {
-                        $archivoLink = $archivo['RUTA_ARCHIVO']; // Ruta del archivo
+                        $archivoLink = $archivo['RUTA_ARCHIVO']; 
                     }
 
                     // Mostrar el comentario y el archivo si existe
@@ -273,8 +307,8 @@ if (isset($_GET['id'])) {
 </body>
 <script>
     document.querySelector('.btn_close').addEventListener('click', function () {
-    var comentario = document.getElementById('comentario').value; // Comentario del formulario
-    var archivo = document.getElementById('file').files[0]; // Archivo adjunto (si existe)
+    var comentario = document.getElementById('comentario').value;
+    var archivo = document.getElementById('file').files[0]; 
 
     // Verificar que el comentario no esté vacío
     if (comentario.trim() === "") {
@@ -283,7 +317,7 @@ if (isset($_GET['id'])) {
     }
 
     var formData = new FormData();
-    formData.append('comentario', comentario); // Agregar el comentario al FormData
+    formData.append('comentario', comentario); 
     formData.append('ticket_id', <?php if (isset($_GET['id'])) {$ticket_id = $_GET['id'];} echo json_encode($ticket_id); ?>); 
 
     
@@ -295,7 +329,7 @@ if (isset($_GET['id'])) {
             Swal.fire('¡Error!', 'Solo se permiten archivos de tipo imagen o PDF.', 'error');
             return;
         }
-        formData.append('fichero', archivo); // Agregar el archivo al FormData
+        formData.append('fichero', archivo); 
     }
 
     // Realizar la solicitud AJAX al script PHP

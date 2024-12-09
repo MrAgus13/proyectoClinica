@@ -159,7 +159,7 @@ error_reporting(E_ALL);
                                 // Si hay un archivo asociado al comentario, mostrar el enlace de descarga
                                 $archivoLink = '';
                                 if ($archivo) {
-                                    $archivoLink = $archivo['RUTA_ARCHIVO']; // Suponiendo que 'ruta' es el campo que contiene la ruta del archivo
+                                    $archivoLink = $archivo['RUTA_ARCHIVO']; 
                                 }
                             
                                 // Mostrar el comentario

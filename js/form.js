@@ -180,21 +180,6 @@ function mostrarArchivo() {
       fileName.textContent = file.name;
       preview.appendChild(fileName);
 
-      // Si el archivo es una imagen, mostrar una miniatura
-      if (file.type.startsWith('image/')) {
-          var reader = new FileReader();
-          
-          reader.onload = function(e) {
-              var img = document.createElement('img');
-              img.src = e.target.result;
-              img.style.width = '50px';  
-              img.style.marginLeft = '10px';
-              preview.appendChild(img);
-          };
-
-          reader.readAsDataURL(file);  // Lee el archivo como URL de datos para mostrar la miniatura
-      }
-
       //Botón para eliminar el archivo
       var removeIcon = document.createElement('img');
             removeIcon.src = 'img/delete.png';  
@@ -226,22 +211,7 @@ function mostrarArchivoConf() {
         var fileName = document.createElement('span');
         fileName.textContent = file.name;
         preview.appendChild(fileName);
-  
-        // Si el archivo es una imagen, mostrar una miniatura
-        if (file.type.startsWith('image/')) {
-            var reader = new FileReader();
-            
-            reader.onload = function(e) {
-                var img = document.createElement('img');
-                img.src = e.target.result;
-                img.style.width = '50px';  
-                img.style.marginLeft = '10px';
-                preview.appendChild(img);
-            };
-  
-            reader.readAsDataURL(file);  // Lee el archivo como URL de datos para mostrar la miniatura
-        }
-  
+
         //Botón para eliminar el archivo
         var removeIcon = document.createElement('img');
               removeIcon.src = 'img/delete.png';  

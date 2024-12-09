@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Recoger los datos del formulario
     $comentario = isset($_POST['comentario']) ? $_POST['comentario'] : ''; 
     $ticket_id = isset($_POST['ticket_id']) ? $_POST['ticket_id'] : ''; 
-    $comentario = htmlspecialchars(trim($comentario), ENT_QUOTES, 'UTF-8'); // Sanitizar el comentario
+    $comentario = htmlspecialchars(trim($comentario), ENT_QUOTES, 'UTF-8'); 
 
     // Validación de los datos recibidos
     if (empty($comentario)) {
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Verificar que el directorio de destino existe y tiene permisos de escritura
         if (!is_dir($directorioDestino)) {
-            mkdir($directorioDestino, 0755, true);  // Crear el directorio si no existe
+            mkdir($directorioDestino, 0755, true);  
         }
 
         // Mover el archivo desde la ubicación temporal al destino
@@ -51,8 +51,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Insertar el comentario en la tabla USER_TICKETS
+    $stmt = $conn->prepare("SELECT ID_USUARIO FROM TICKETS WHERE ID_TICKET = ?");
+    $stmt->bind_param("i", $ticket_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows > 0) {
+        $ticket = $result->fetch_assoc();
+        $usuario = $ticket['ID_USUARIO'];
+    
+    } 
+
     $stmt = $conn->prepare("INSERT INTO USER_TICKETS (ID_USER, COMENTARIOS,ID_TICKET) VALUES (?, ?, ?)");
-    $usuario = 1;  // Ejemplo: asumiendo que el ID de usuario es 1 (esto puede cambiar según tu lógica)
     $stmt->bind_param("isi", $usuario, $comentario,$ticket_id);
 
     // Ejecutar la consulta para insertar el comentario

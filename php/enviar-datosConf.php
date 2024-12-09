@@ -22,13 +22,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Recoger los datos del formulario
     $nombre = $_POST['nombre'];   
     $correo = $_POST['correo'];   
-    $fecha = $_POST['fecha'];              // Recoger la fecha del evento
-    $localizacion = $_POST['localizacion']; // Recoger la localización
-    $asunto = $_POST['asunto'];            // Recoger el asunto
-    $descripcion = $_POST['descripcion'];  // Recoger la descripción
-    $codigoIncidencia = $_POST['codigoIncidencia']; // Recoger el código de incidencia
+    $fecha = $_POST['fecha'];             
+    $localizacion = $_POST['localizacion']; 
+    $asunto = $_POST['asunto'];            
+    $descripcion = $_POST['descripcion']; 
+    $codigoIncidencia = $_POST['codigoIncidencia']; 
 
-    // Validación de los datos recibidos (opcional, pero recomendable)
+    // Validación de los datos recibido
     if (empty($fecha) || empty($localizacion) || empty($asunto) || empty($descripcion)) {
         echo "Por favor, complete todos los campos requeridos.";
         exit;
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Inicializar la variable para el nombre del archivo
     $nombreArchivo = null;
 
-    // Manejo del archivo subido (si hay archivo)
+    // Manejo del archivo subido
     if (isset($_FILES['ficheroC']) && $_FILES['ficheroC']['error'] == 0) {
         $nombreArchivo = basename($_FILES['ficheroC']['name']);
         $directorioDestino = "../uploads/"; 

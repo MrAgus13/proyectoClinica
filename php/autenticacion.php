@@ -44,17 +44,17 @@ if ($stmt = $conexion->prepare('SELECT USUARIO_ADMIN, CONTRASENA, NOMBRE FROM AD
             session_regenerate_id();
             $_SESSION['loggedin'] = TRUE;
             $_SESSION['name'] = $nombre;
-            $_SESSION['mail'] = $db_mail; // Guardar el mail en la sesión
-            header('Location: ../pPpalCelia'); // Redirigir al inicio
+            $_SESSION['mail'] = $db_mail; 
+            header('Location: ../pPpalCelia');
             exit();
         } else {
             // Contraseña incorrecta
-            header('Location: ../login?error=1'); // Redirigir con mensaje de error
+            header('Location: ../login?error=1'); 
             exit();
         }
     } else {
         // Usuario no encontrado
-        header('Location: ../login?error=1'); // Redirigir con mensaje de error
+        header('Location: ../login?error=1'); 
         exit();
     }
 

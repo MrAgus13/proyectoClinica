@@ -22,13 +22,13 @@ if ($conn->connect_error) {
 // Verificar si se enviaron datos mediante POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Recoger los datos del formulario
-    $fecha = $_POST['fecha'];              // Recoger la fecha del evento
-    $localizacion = $_POST['localizacion']; // Recoger la localización
-    $asunto = $_POST['asunto'];            // Recoger el asunto
-    $descripcion = $_POST['descripcion'];  // Recoger la descripción
-    $codigoIncidencia = $_POST['codigoIncidencia']; // Recoger el código de incidencia
+    $fecha = $_POST['fecha'];              
+    $localizacion = $_POST['localizacion']; 
+    $asunto = $_POST['asunto'];            
+    $descripcion = $_POST['descripcion']; 
+    $codigoIncidencia = $_POST['codigoIncidencia']; 
 
-    // Validación de los datos recibidos (opcional, pero recomendable)
+    // Validación de los datos recibidos
     if (empty($fecha) || empty($localizacion) || empty($asunto) || empty($descripcion)) {
         header('Location: ../formulario?error=1');
         exit();
@@ -38,13 +38,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombreArchivo = null;
 
     $idTicket = rand(10000000, 99999999);
-    $directorioDestino = "../uploads/";  // Debes tener esta carpeta creada
+    $directorioDestino = "../uploads/"; 
     $rutaArchivo = $directorioDestino . $nombreArchivo;
 
     // Preparar la consulta SQL para insertar el ticket
     $stmt = $conn->prepare("INSERT INTO TICKETS (ID_TICKET, FECHA_HECHO, LUGAR, ASUNTO, DESCRIPCION, ID_USUARIO) VALUES (?, ?, ?, ?, ?, ?)");
 
-    $usuario = 1;  // Ejemplo: asumiendo que el ID de usuario es 1
+    $usuario = 1;  
     // Vincular los parámetros
     $stmt->bind_param("issssi", $idTicket, $fecha, $localizacion, $asunto, $descripcion, $usuario);
 
@@ -52,8 +52,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($stmt->execute()) {
         // Manejo del archivo subido (si hay archivo)
         if (isset($_FILES['fichero']) && $_FILES['fichero']['error'] == 0) {
-            // Carpeta donde se guardarán los archivos (asegúrate de crearla y darle permisos de escritura)
-            $directorioDestino = "../uploads/";  // Debes tener esta carpeta creada
+            // Carpeta donde se guardarán los archivos
+            $directorioDestino = "../uploads/";  
             $nombreArchivo = basename($_FILES['fichero']['name']);
             $rutaArchivo = $directorioDestino . $nombreArchivo;
             

@@ -101,25 +101,25 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE) {
                                         echo '  <td>' . htmlspecialchars($exercise["LUGAR"]) . '</td>';
 
                                         // Obtener los archivos relacionados con este ticket
-                                        $ticket_id = $exercise["ID_TICKET"];  // Asegúrate de usar el ID del ticket actual
+                                        $ticket_id = $exercise["ID_TICKET"];  
 
                                         // Preparar la consulta SQL para obtener los archivos de este ticket
                                         $sql_archivos = "SELECT RUTA_ARCHIVO, NOMBRE_ARCHIVO FROM ARCHIVOS WHERE ID_TICKET = ?";
                                         $stmt_archivos = $conn->prepare($sql_archivos);
-                                        $stmt_archivos->bind_param("i", $ticket_id);  // Vincula el ID del ticket a la consulta
+                                        $stmt_archivos->bind_param("i", $ticket_id); 
                                         $stmt_archivos->execute();
                                         $result_archivos = $stmt_archivos->get_result();
 
                                         // Si hay archivos, mostrar un ícono o algo similar
                                         if ($result_archivos->num_rows > 0) {
                                             echo '  <td style="display: flex; justify-content: center;">';
-                                            echo '    <img width="20px" src="img/file.png">';  // Icono de archivo
+                                            echo '    <img width="20px" src="img/file.png">';  
                                             echo '  </td>';
                                         } else {
                                             echo '  <td></td>';
                                         }
 
-                                        echo '  <td></td>';  // Puedes poner algo más aquí si es necesario
+                                        echo '  <td></td>';
                                         echo '</tr>';
 
                                         // Cerrar la declaración de archivos
@@ -209,22 +209,22 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE) {
                                         echo '  <td>' . htmlspecialchars($exercise["LUGAR"]) . '</td>';
 
                                         // Obtener los archivos relacionados con este ticket
-                                        $ticket_id = $exercise["ID_TICKET"];  // Asegúrate de usar el ID del ticket actual
+                                        $ticket_id = $exercise["ID_TICKET"];  
 
                                         // Preparar la consulta SQL para obtener los archivos de este ticket
                                         $sql_archivos = "SELECT RUTA_ARCHIVO, NOMBRE_ARCHIVO FROM ARCHIVOS WHERE ID_TICKET = ?";
                                         $stmt_archivos = $conn->prepare($sql_archivos);
-                                        $stmt_archivos->bind_param("i", $ticket_id);  // Vincula el ID del ticket a la consulta
+                                        $stmt_archivos->bind_param("i", $ticket_id); 
                                         $stmt_archivos->execute();
                                         $result_archivos = $stmt_archivos->get_result();
 
                                         // Si hay archivos, mostrar un ícono o algo similar
                                         if ($result_archivos->num_rows > 0) {
                                             echo '  <td style="display: flex; justify-content: center;">';
-                                            echo '    <img width="20px" src="img/file.png">';  // Icono de archivo
+                                            echo '    <img width="20px" src="img/file.png">';  
                                             echo '  </td>';
                                         } else {
-                                            echo '  <td></td>';  // Si no hay archivos, mostrar una celda vacía
+                                            echo '  <td></td>'; 
                                         }
 
                                         echo '</tr>';
