@@ -18,6 +18,8 @@ error_reporting(E_ALL);
     <title>Buzón de sugerencias | Clínica Sagrada Família</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/tickPruebas.js"></script>
     <script src="js/tickPruebasGenerar.js"></script>
     <link rel="stylesheet" href="css/fonts.css">
@@ -26,7 +28,7 @@ error_reporting(E_ALL);
 <body>
     <div class="container box-tick mt-5">
        <div id="ticket-info">
-            <!-- Información inicial del ticket y otros elementos dinámicos se agregarán aquí -->
+            <!-- Información inicial del ticket y otros elementos -->
             <?php
                 session_start();
 
@@ -76,7 +78,6 @@ error_reporting(E_ALL);
                     $stmt->close();
 
                     // Cerrar conexión
-                    $conn->close();
 
                     // Verificar si se encontró un ticket
                     if ($row = $result->fetch_assoc()) {
@@ -126,7 +127,78 @@ error_reporting(E_ALL);
                             echo '      </div>';
                         }
                         echo '   </div>';
+
+                        $sql = "SELECT * FROM USER_TICKETS WHERE ID_TICKET = '$ticket_id'";
+                    
+                        $stmt = $conn->prepare($sql);
+    
+                        // Ejecutar la consulta
+                        $stmt->execute();
+    
+                        $comments = [];
+    
+                        $comments = $stmt->get_result(); 
+    
+                        // Cerrar la declaración preparada
+                        $stmt->close();
+
+                        if ($comment = $comments->fetch_assoc()) {
                         
+                            foreach ($comments as $comment) {
+                                echo '<div class="boxUnDes d-flex justify-content-between align-items-center mt-3">
+                                        <p class="p-3 m-0">Has agregado un comentario</p>
+                                        <img class="dropdownIcon" src="img/dropdownIcon.svg" alt="">
+                                      </div>';
+                                
+                                echo '<div class="boxDes p-3 d-none">
+                                        <div class="infoPersonal mb-3">
+                                            <p>Descripción de la incidencia:</p>
+                                            <textarea class="form-control" id="comment-descripcion">'.htmlspecialchars($comment['COMENTARIOS']).'</textarea>
+                                        </div>
+                                        <div class="infoPersonal mb-3">
+                                            <p>Fichero: </p>
+                                            
+                                        </div>
+                                      </div>';                                
+                            }
+                        }
+
+                        $sql = "SELECT * FROM ADMIN_TICKETS WHERE ID_TICKET = '$ticket_id'";
+                    
+                        $stmt = $conn->prepare($sql);
+    
+                        // Ejecutar la consulta
+                        $stmt->execute();
+    
+                        $commentsAdmin = [];
+    
+                        $commentsAdmin = $stmt->get_result(); 
+    
+                        // Cerrar la declaración preparada
+                        $stmt->close();
+
+                        if ($commentAdmin = $commentsAdmin->fetch_assoc()) {
+                        
+                            foreach ($commentsAdmin as $commentAdmin) {
+                                echo '<div class="boxUnDes d-flex justify-content-between align-items-center mt-3">
+                                        <p class="p-3 m-0">Te han agregado un comentario </p>
+                                        <img class="dropdownIcon" src="img/dropdownIcon.svg" alt="">
+                                      </div>';
+                                
+                                echo '<div class="boxDes p-3 d-none">
+                                        <div class="infoPersonal mb-3">
+                                            <p>Descripción de la incidencia:</p>
+                                            <textarea class="form-control" id="comment-descripcion">'.htmlspecialchars($commentAdmin['COMENTARIOS']).'</textarea>
+                                        </div>
+                                        <div class="infoPersonal mb-3">
+                                            <p>Fichero: </p>
+                                            
+                                        </div>
+                                      </div>';                                
+                            }
+                        }
+                        $conn->close();
+
                     }
                     else{
                         header('Location: ../index?error=1');
@@ -141,8 +213,8 @@ error_reporting(E_ALL);
     </div> 
 <script>
     function saveComment(){
-        var comentario = document.getElementById('comentario').value; // Comentario del formulario
-        var archivo = document.getElementById('file').files[0]; // Archivo adjunto (si existe)
+        var comentario = document.getElementById('comment-descripcion').value; // Comentario del formulario
+        var archivo = document.getElementById('file-nombre').files[0]; // Archivo adjunto (si existe)
 
         // Verificar que el comentario no esté vacío
         if (comentario.trim() === "") {
@@ -165,8 +237,8 @@ error_reporting(E_ALL);
         xhr.onload = function () {
             if (xhr.status === 200) {
                 Swal.fire('¡Éxito!', 'Comentario enviado con éxito.', 'success');
-                // Opcional: Redirigir o actualizar la página
-                location.reload(); // Recargar la página para ver los cambios
+                location.reload();
+                
             } else {
                 Swal.fire('¡Error!', 'Hubo un problema al enviar el comentario.', 'error');
             }

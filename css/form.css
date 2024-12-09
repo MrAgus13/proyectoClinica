@@ -4,8 +4,6 @@
 }
 
 body{    
-    /* background-image: url(../img/edificio-sf.jpg); */
-    /* background-size: cover; */
     background: linear-gradient(#10408b, #7a8494);
     margin: 0;
     padding: 0;   
@@ -105,10 +103,6 @@ div form * {
     margin: 0;
     padding: .4em;
 }
-.active {
-    background-color: #134189 !important;
-    color: white;
-}
 
 form{
     border: none;
@@ -137,13 +131,12 @@ label{
     float: left;
 }
 
-
-#asunto {
+#asunto, #asuntoC {
     width: 89%;
     height: 25px;
 }
 
-#fecha{
+#fecha, #fechaC{
     width: 40%;
     margin-right: 7.8%;
     cursor: pointer;
@@ -151,12 +144,12 @@ label{
     height: 25px;
 }
 
-#localizacion{
+#localizacion, #localizacionC{
     width: 40.5%;
     padding: .5em;
 }
 
-#descripcion{
+#descripcion, #descripcionC{
     width: 89.2%;
     height: 9em;
 }
@@ -174,13 +167,15 @@ label{
     transition: background-color 0.3s ease;
     border-radius: 5px;
 }
+
 #enviar:hover {
     background-color: #0b2b4a;
 }
 
-#fichero {
+#fichero, #ficheroC {
     display: none;
 }
+
 #btn-fichero {
     display: inline-block;
     width: 15%;
@@ -194,12 +189,12 @@ label{
     transition: background-color 0.3s ease; 
     border-radius: 5px;
 }
+
 #btn-fichero:hover {
     background-color: #646464b6; 
 }
 
 /*Formulario confidencial*/
-
 #confText {
     display: none;
 }
@@ -217,16 +212,15 @@ label{
     cursor: pointer;
 }
 
-
 #email {
     width: 40%;
     height: 25px;
 }
 
-
 .anim {
     opacity: 0.2;
-  }
+}
+
 
 /* zone animation */
 
@@ -250,7 +244,6 @@ label{
     }
 }
 
-/* change the form with opacity */
 
 /* Define the animations */
 @keyframes fadeIn {

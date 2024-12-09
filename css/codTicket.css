@@ -1,24 +1,23 @@
 .container{
-    background-color: rgba(255,255,255,.80);
-    box-shadow: 0 0 1em rgba(0,0,0,.5);
-    padding: 5em;
-    border-radius: 5px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-
+  background-color: rgba(255,255,255,.80);
+  box-shadow: 0 0 1em rgba(0,0,0,.5);
+  padding: 5em;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 .vertical-center {
-    min-height: 100%;  
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
+  min-height: 100%;  
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
 
-  .col-paddingOff{
-    padding: 0 !important;
-  }
+.col-paddingOff{
+  padding: 0 !important;
+}
 
 .col-paddingOff button{
-    background-color: #134189;
-    border: none;
-  }
+  background-color: #134189;
+  border: none;
+}

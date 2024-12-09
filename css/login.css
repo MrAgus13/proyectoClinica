@@ -85,15 +85,13 @@ input:focus{
     background-color: #0c316d; 
 }
 
-/* ESTO PARA TENER LO DEL */
 input::placeholder{
     font-size: 1.1em;
     opacity: .7;
 }
 
 
-
-/*Error*/
+/*Animación de error*/
 @keyframes shake {
     0% { transform: translateX(0); }
     25% { transform: translateX(-5px); }
@@ -104,5 +102,5 @@ input::placeholder{
 
 .invalid-input {
     border: 1.5px solid red !important;
-    animation: shake 0.5s ease; /* Apply shake animation */
+    animation: shake 0.5s ease; 
 }

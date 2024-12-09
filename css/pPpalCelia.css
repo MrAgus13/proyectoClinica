@@ -9,8 +9,6 @@
 }
 
 body{
-    /* background-image: url(../img/edificio-sf.jpg);
-    background-size: cover; */
     background: linear-gradient(#10408b, #7a8494);
     height: 100vh;
     margin: 0;
@@ -41,6 +39,7 @@ body{
 .table {
     width: 100%;
     font-size: 15px;
+    cursor: pointer;
 }
 
 .table-bordered > :not(caption) > * > * {

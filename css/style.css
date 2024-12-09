@@ -21,7 +21,6 @@ body{
 }
 
 /* Estilo de los botones de selección */
-
 .btn-principal{
     padding: 5%;
     border: none;
@@ -59,7 +58,6 @@ body{
 }
 
 /* Flecha azul para enviar código */
-
 input::placeholder{
     opacity: .7
 }
@@ -75,6 +73,7 @@ input::placeholder{
 .col-md-5{
     position: relative;
 }
+
 .col-md-5 dotlottie-player{
     z-index: 10;
     width: 70px;

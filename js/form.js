@@ -30,9 +30,9 @@ var waveBtn = (function () {
 
           indicator.style.marginLeft = indi + (this.dataset.num - 1) * 40.6 + '%';
 
-          // Toggle forms with animation
+          // Animación
           if (boolean) {
-            // animating the text too
+            
               anomText.classList.remove('fade-out');
               confText.classList.remove('fade-in');
               anomText.classList.add('fade-in');
@@ -127,10 +127,10 @@ function enviarConf(event){
   // Obtener los valores de los campos del formulario
   const nombre = document.getElementById('nombre').value;
   const email = document.getElementById('email').value;
-  const fecha = document.getElementById('fechaConf').value;
-  const localizacion = document.getElementById('localizacionConf').value;
-  const asunto = document.getElementById('asuntoConf').value;
-  const descripcion = document.getElementById('descripcionConf').value;
+  const fecha = document.getElementById('fechaC').value;
+  const localizacion = document.getElementById('localizacionC').value;
+  const asunto = document.getElementById('asuntoC').value;
+  const descripcion = document.getElementById('descripcionC').value;
 
   // Verificar que todos los campos obligatorios están completos
   if (!nombre || !email || !fecha || !localizacion || !asunto || !descripcion) {
@@ -175,7 +175,7 @@ function mostrarArchivo() {
   preview.innerHTML = '';
 
   if (file) {
-      // Mostrar el nombre del archivo
+      
       var fileName = document.createElement('span');
       fileName.textContent = file.name;
       preview.appendChild(fileName);
@@ -187,7 +187,7 @@ function mostrarArchivo() {
           reader.onload = function(e) {
               var img = document.createElement('img');
               img.src = e.target.result;
-              img.style.width = '50px';  // Tamaño de la miniatura
+              img.style.width = '50px';  
               img.style.marginLeft = '10px';
               preview.appendChild(img);
           };
@@ -195,22 +195,83 @@ function mostrarArchivo() {
           reader.readAsDataURL(file);  // Lee el archivo como URL de datos para mostrar la miniatura
       }
 
-      // Crear un botón para eliminar el archivo
+      //Botón para eliminar el archivo
       var removeIcon = document.createElement('img');
-            removeIcon.src = 'img/delete.png';  // Ruta de tu icono de eliminar
+            removeIcon.src = 'img/delete.png';  
             removeIcon.alt = 'Eliminar archivo';
-            removeIcon.style.width = '20px';  // Ajusta el tamaño del icono
+            removeIcon.style.width = '20px';  
             removeIcon.style.marginLeft = '10px';
-            removeIcon.style.cursor = 'pointer';  // Cambia el cursor al pasar por encima
+            removeIcon.style.cursor = 'pointer';  
 
             // Al hacer clic en el icono, limpiar el campo de archivo y la vista previa
             removeIcon.onclick = function() {
-                input.value = '';  // Limpiar el campo de entrada
-                preview.innerHTML = '';  // Limpiar la vista previa
+                input.value = '';  
+                preview.innerHTML = '';  
             };
 
             preview.appendChild(removeIcon);
   }
 }
 
+function mostrarArchivoConf() {
+    var input = document.getElementById('ficheroC');
+    var preview = document.getElementById('file-previewC');
+    var file = input.files[0];
+  
+    // Limpiar el contenido previo
+    preview.innerHTML = '';
+  
+    if (file) {
+        
+        var fileName = document.createElement('span');
+        fileName.textContent = file.name;
+        preview.appendChild(fileName);
+  
+        // Si el archivo es una imagen, mostrar una miniatura
+        if (file.type.startsWith('image/')) {
+            var reader = new FileReader();
+            
+            reader.onload = function(e) {
+                var img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.width = '50px';  
+                img.style.marginLeft = '10px';
+                preview.appendChild(img);
+            };
+  
+            reader.readAsDataURL(file);  // Lee el archivo como URL de datos para mostrar la miniatura
+        }
+  
+        //Botón para eliminar el archivo
+        var removeIcon = document.createElement('img');
+              removeIcon.src = 'img/delete.png';  
+              removeIcon.alt = 'Eliminar archivo';
+              removeIcon.style.width = '20px';  
+              removeIcon.style.marginLeft = '10px';
+              removeIcon.style.cursor = 'pointer';  
+  
+              // Al hacer clic en el icono, limpiar el campo de archivo y la vista previa
+              removeIcon.onclick = function() {
+                  input.value = '';  
+                  preview.innerHTML = '';  
+              };
+  
+              preview.appendChild(removeIcon);
+    }
+  }
+  
 
+// Calendario personalizado
+flatpickr("#fecha", {
+    enableTime: true, 
+    dateFormat: "Y-m-d H:i", 
+    time_24hr: true, 
+    locale: "es"
+});
+
+flatpickr("#fechaC", {
+    enableTime: true, 
+    dateFormat: "Y-m-d H:i", 
+    time_24hr: true, 
+    locale: "es"
+});

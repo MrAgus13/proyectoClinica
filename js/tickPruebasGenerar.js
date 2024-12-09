@@ -1,4 +1,3 @@
-// ticketManual.js (Generación manual de cajas con funcionalidad de guardar)
 document.addEventListener("DOMContentLoaded", () => {
     // Función para añadir una caja de comentario
     function addCommentBox() {
@@ -21,17 +20,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 <p>Nombre del fichero:</p>
                 <input type="file" class="form-control" value="Fichero de ejemplo" id="file-nombre">
             </div>
-            <button class="btn btn-success" onclick="saveComment()">Guardar</button>
+            <button class="btn btn-success">Guardar</button>
         `;
 
-        //commentBox.addEventListener("click", () => toggleBox(commentDetails));
-
-        // Añadir la caja y los detalles en el contenedor principal
+        // Añadir la caja y los detalles al contenedor
         const ticketInfo = document.getElementById("ticket-info");
         ticketInfo.appendChild(commentBox);
         ticketInfo.appendChild(commentDetails);
 
-        attachToggleEvent(commentBox, commentDetails);
+        // Asignar el evento de "Guardar" a cada botón "Guardar"
+        const saveButton = commentDetails.querySelector("button");
+        saveButton.addEventListener("click", () => {
+            const comentario = commentDetails.querySelector('#comment-descripcion').value;
+            const archivo = commentDetails.querySelector('#file-nombre').files[0];
+            saveComment(comentario, archivo);
+        });
     }
 
     // Función para manejar la apertura y cierre de las cajas
@@ -45,28 +48,26 @@ document.addEventListener("DOMContentLoaded", () => {
         detailsElement.classList.toggle("d-none");
     }
 
-    
+    // Delegación de eventos: asignamos el evento de clic al contenedor principal
+    const ticketInfo = document.getElementById("ticket-info");
 
-    // Función para asignar el evento de clic a los nuevos elementos
-    function attachToggleEvent(boxElement, detailsElement) {
-        boxElement.addEventListener("click", () => toggleBox(detailsElement));
-    }
-
-    // Inicializar los eventos de despliegue para los elementos ya existentes al cargar la página
-    function initializeToggleEvents() {
-        const toggleElements = document.querySelectorAll(".boxUnDes");
-        toggleElements.forEach(toggleElement => {
-            const detailsElement = toggleElement.nextElementSibling; // Caja de detalles asociada
-            attachToggleEvent(toggleElement, detailsElement);
+    if (ticketInfo) {
+        ticketInfo.addEventListener("click", (event) => {
+            // Verificar si el clic fue en una de las cajas de comentarios
+            const boxElement = event.target.closest(".boxUnDes");
+            if (boxElement) {
+                const detailsElement = boxElement.nextElementSibling;
+                if (detailsElement && detailsElement.classList.contains("boxDes")) {
+                    toggleBox(detailsElement);
+                }
+            }
         });
     }
 
-    // Asignación de eventos a los botones para agregar cajas de comentario y fichero
+    // Asignación de eventos a los botones para agregar cajas de comentario
     const addCommentBtn = document.getElementById("add-comment-btn");
 
     if (addCommentBtn) {
         addCommentBtn.addEventListener("click", addCommentBox);
     }
-
-    initializeToggleEvents();
 });

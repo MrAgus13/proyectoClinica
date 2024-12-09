@@ -71,17 +71,16 @@ if (isset($_GET['error'])) {
     </div>
 
     <script>
-        // Trigger the shake animation for invalid inputs
+        //Animación para inputs incorrectos
         <?php if (isset($error_message)): ?> 
             window.onload = function() {
-                // Add the invalid-input class to the inputs that failed
+                
                 var mailInput = document.getElementById("mail");
                 var passwordInput = document.getElementById("password");
 
                 mailInput.classList.add("invalid-input");
                 passwordInput.classList.add("invalid-input");
 
-                // Optionally, you can also add a red color to the labels
                 var mailLabel = document.querySelector('label[for="mail"]');
                 var passwordLabel = document.querySelector('label[for="password"]');
                 

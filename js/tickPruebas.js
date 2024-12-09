@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Elemento contenedor principal donde se agregarán las nuevas cajas
     const ticketInfo = document.getElementById("ticket-info");
 
-    // Añadir funcionalidad de mostrar/ocultar detalles para cada caja
+    //Mostrar/ocultar detalles para cada caja
     function toggleBox(detailsElement) {
         // Cerramos todas las cajas antes de abrir la seleccionada
         const allBoxes = document.querySelectorAll(".boxDes");

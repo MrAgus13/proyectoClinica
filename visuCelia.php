@@ -18,7 +18,7 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buzón de sugerencias | Clínica Sagrada Família</title>
-    <script defer src="bootstrap/js/bootstrap.min.js"></script>
+    <script defer src="bootstrap/js/bootstrap.mi    n.js"></script>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <script defer src="js/home.js"></script>
@@ -54,7 +54,7 @@ if (isset($_GET['id'])) {
 
         // Preparar la consulta SQL de manera segura usando declaración preparada
         $sql = "SELECT * FROM TICKETS WHERE ID_TICKET = ?";
-
+    
         // Preparar la declaración SQL
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $ticket_id); // Vinculamos el ID del ticket
@@ -84,7 +84,6 @@ if (isset($_GET['id'])) {
 
         // Cerrar la declaración preparada
         $stmt->close();
-
 
         // Verificar si se encontró un ticket
         if ($row = $result->fetch_assoc()) {
@@ -146,6 +145,9 @@ if (isset($_GET['id'])) {
                     echo '        Espacio para visualizar imágenes, archivos...';
                 echo '    </div>';
             }
+                
+
+            //Archivos adjuntos
             echo '    <div class="form-section mt-3">';
             echo '        <textarea id="comentario" class="response-box" placeholder="Escribe aquí tu respuesta"></textarea>';
             echo '    </div>';
@@ -179,6 +181,7 @@ if (isset($_GET['id'])) {
     var formData = new FormData();
     formData.append('comentario', comentario); // Agregar el comentario al FormData
     formData.append('ticket_id', <?php if (isset($_GET['id'])) {$ticket_id = $_GET['id'];} echo json_encode($ticket_id); ?>); 
+
     
     // Validar archivo si existe
     if (archivo) {
@@ -199,8 +202,8 @@ if (isset($_GET['id'])) {
     xhr.onload = function () {
         if (xhr.status === 200) {
             Swal.fire('¡Éxito!', 'Comentario enviado con éxito.', 'success');
-            location.reload(); // Recargar la página para ver los cambios
-        } else {
+            location.reload();
+            } else {
             Swal.fire('¡Error!', 'Hubo un problema al enviar el comentario. Código de error: ' + xhr.status, 'error');
         }
     };

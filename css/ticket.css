@@ -43,6 +43,7 @@ input, textarea {
 
 .form-control{
     color:#7c7c7cb6;
+    cursor: text;
 }
 
 .form-control:focus, .description-box:focus {

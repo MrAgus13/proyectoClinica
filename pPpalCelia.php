@@ -31,7 +31,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE) {
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title text-primary pb-2">Nuevas incidencias</h5>                                     
-                        <table class="table table-bordered " style="max-height: 40em; overflow-y: auto; display: block; width: 100%; cursor: pointer;">                                                 
+                        <table class="table table-bordered" >   
                             <thead>
                                 <tr>
                                     <th>Fecha</th>
@@ -140,7 +140,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE) {
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title text-primary pb-2">Incidencias en curso</h5> 
-                        <table class="table table-bordered" style="max-height: 30em; overflow-y: auto; display: block; width: 100%; cursor: pointer;">                                                                                                   
+                        <table class="table table-bordered">                                                                                                   
                             <thead>
                                 <tr>
                                     <th>Fecha</th>
