@@ -47,13 +47,13 @@ Este sistema es una plataforma web que permite a una clínica médica registrar 
    - Configuración del servidor para manejo de rutas amigables y seguridad.
 
 2. **`codTicket.php`**:
-   - Genera códigos únicos para cada ticket.
+   - Muestra el codigo del ticket creado.
 
 3. **`formulario.html`**:
    - Formulario básico para registrar eventos adversos.
 
 4. **`index.php`**:
-   - Página principal del sistema.
+   - Página principal.
 
 5. **`login.php`**:
    - Página de inicio de sesión.
@@ -65,10 +65,10 @@ Este sistema es una plataforma web que permite a una clínica médica registrar 
    - Muestra tickets que ya han sido resueltos.
 
 8. **`ticket.php`**:
-   - Página principal de creación y gestión de tickets.
+   - Vista de los tickets por parte de los usuarios.
 
 9. **`visuCelia.php`**:
-   - Vista específica para Celia.
+   - Vista específica para el admin de un ticket.
 
 ---
 
